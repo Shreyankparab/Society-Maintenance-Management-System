@@ -1,0 +1,388 @@
+Society Maintenance Management System
+Complete Requirement Discovery & Scope Document
+1. Project Goal
+A web-based system where:
+Society admins/manage committee members can:
+Manage flats & residents
+Generate maintenance bills
+Track paid/unpaid dues
+Send reminders
+Manage receipts
+View reports
+Flat owners/residents can:
+Login securely
+View maintenance dues
+Pay online
+Download receipts
+View payment history
+Raise complaints/requests (optional)
+2. User Roles
+A. Super Admin (You / Society Head)
+Highest control.
+Permissions
+Create/manage society
+Add committee members
+Configure maintenance structure
+View all reports
+Backup/export data
+Manage payment gateway settings
+Manage notices/broadcasts
+
+B. Committee/Admin Staff
+Permissions
+Add/edit residents
+Add flats/wings
+Generate maintenance invoices
+Mark payments manually
+Approve offline payments
+Generate receipts
+Send reminders
+View defaulters list
+
+C. Flat Owner / Resident
+Permissions
+Login
+View dues
+Pay maintenance
+Download receipt
+View notices
+Update profile
+View payment history
+
+3. Core Modules
+Module 1 — Authentication & Security
+Features
+Login using:
+Mobile number
+Email
+Flat number + password
+Forgot password
+OTP verification
+Role-based access
+Session management
+Secure password encryption
+Questions to Ask
+Do they want WhatsApp OTP or email OTP?
+One login per flat or multiple family members?
+Should tenants also get login access?
+
+Module 2 — Society Structure Management
+Features
+Add society details
+Create:
+Wings
+Buildings
+Floors
+Flats
+Flat Details
+Flat number
+Owner name
+Tenant name
+Contact details
+Parking slots
+Area (sq ft)
+Maintenance type
+Questions
+Is maintenance fixed or area-based?
+Any commercial shops/offices?
+Multiple owners per flat?
+
+Module 3 — Maintenance Bill Generation
+MOST IMPORTANT MODULE.
+Features
+Generate maintenance for:
+Entire society
+Wing-wise
+Selected flats
+Bill frequency:
+Monthly
+Quarterly
+Yearly
+Add bill components:
+Maintenance
+Water charges
+Sinking fund
+Parking charges
+Security
+Lift maintenance
+Penalty
+Interest
+Advanced Features
+Auto late fee calculation
+Due date setup
+GST support
+PDF invoice generation
+Questions
+Do they use fixed maintenance?
+Any penalty after due date?
+Need GST invoices?
+Need bulk invoice generation?
+
+Module 4 — Payment System
+Online Payments
+Possible integrations:
+Razorpay
+Cashfree
+PhonePe
+Stripe (rare for societies)
+Payment Modes
+UPI
+Card
+Net banking
+Cash
+Cheque
+Bank transfer
+Features
+Auto payment verification
+Payment success/failure tracking
+Transaction history
+Partial payments
+Advance payments
+Questions
+Need online payment gateway?
+Want manual approval for cash/cheque?
+Need auto-generated receipts?
+
+Module 5 — Receipt Management
+Features
+Auto PDF receipt generation
+Receipt numbering
+Download/print receipt
+Email receipt
+WhatsApp receipt sharing
+Receipt Contains
+Society name/logo
+Flat number
+Amount paid
+Date
+Payment mode
+Transaction ID
+
+Module 6 — Defaulters & Reports
+Reports
+Paid vs unpaid
+Monthly collection report
+Outstanding report
+Flat-wise report
+Expense vs income
+Export Excel/PDF
+Dashboard
+Total dues
+Total collected
+Pending collections
+Monthly statistics
+Questions
+Need accountant-style reports?
+Need Tally export?
+Need audit reports?
+
+Module 7 — Notifications & Communication
+Features
+SMS reminders
+Email reminders
+WhatsApp notifications
+Due alerts
+Notice board
+Examples
+Maintenance due reminder
+Payment confirmation
+Society announcements
+Questions
+WhatsApp integration required?
+Automated reminders?
+Broadcast notices?
+
+Module 8 — Complaint Management (Optional but Highly Valuable)
+Features
+Residents can:
+Raise complaints
+Track complaint status
+Upload images
+Admins can:
+Assign staff
+Update status
+
+Module 9 — Visitor / Gate Entry (Optional Future Upgrade)
+Could become a premium module later.
+Features
+Visitor approval
+Delivery tracking
+Guard app
+
+Module 10 — Document Management
+Features
+Store:
+Society bylaws
+NOCs
+Meeting minutes
+Audit reports
+Share certificates
+
+4. Technical Requirements
+Frontend
+Recommended:
+Next.js
+Tailwind CSS
+Shadcn UI
+Backend
+Recommended:
+Node.js + Express
+OR
+Next.js full-stack
+Database
+PostgreSQL (recommended)
+OR
+MySQL
+Authentication
+JWT + refresh tokens
+Storage
+Cloudinary / AWS S3 for receipts/documents
+Hosting
+Vercel (frontend)
+Railway/Render/AWS for backend
+
+5. Recommended Database Entities
+Main tables/entities:
+users
+societies
+wings
+flats
+residents
+maintenance_bills
+bill_items
+payments
+receipts
+notices
+complaints
+payment_transactions
+penalties
+audit_logs
+6. Admin Dashboard Requirements
+Need widgets like:
+Total collection
+Pending dues
+Recent payments
+Defaulters
+Monthly graph
+Occupancy stats
+
+7. Resident Dashboard Requirements
+Need:
+Current dues
+Payment history
+Download receipt
+Notices
+Complaint status
+
+8. Legal & Operational Questions (VERY IMPORTANT)
+Ask these before finalizing scope:
+Financial
+Who handles accounting?
+Any GST?
+Need audit reports?
+Operational
+How many flats?
+How many admins?
+Single society or multi-society system?
+Existing software/data?
+Security
+Need backup?
+Need activity logs?
+Integrations
+WhatsApp API?
+SMS provider?
+Payment gateway?
+
+9. MVP Scope (Recommended First Version)
+To avoid project explosion, suggest this first:
+Phase 1 (MVP)
+Include:
+Login
+Flat management
+Maintenance generation
+Payment tracking
+Online payments
+Receipt download
+Admin dashboard
+Reports
+Phase 2
+Complaints
+Notices
+WhatsApp automation
+Visitor management
+
+
+10. Hidden Requirements Clients Forget to Mention
+Almost every society later asks for:
+Export to Excel
+PDF receipts
+Search/filter
+Mobile responsive UI
+Backup system
+Audit logs
+Late payment penalties
+Tenant handling
+Multiple admins
+Data import from Excel
+Receipt numbering
+Role permissions
+Plan architecture accordingly from day one.
+
+11. Questions You Should Ask In Your Next Meeting
+Business Questions
+How many flats are there?
+Multiple buildings/wings?
+Current maintenance process?
+Online payments needed?
+Need WhatsApp reminders?
+Existing data in Excel?
+Need accountant reports?
+Need complaint system?
+Multiple admins?
+Mobile app needed later?
+
+12. Recommended Professional Features
+These make your project look enterprise-grade:
+Dark/light mode
+Activity logs
+Receipt QR codes
+Payment status timeline
+Bulk import via Excel
+Scheduled maintenance generation
+Automated reminders
+Dashboard analytics
+Role permissions
+Mobile-first responsive design
+13. Recommended Architecture (Professional)
+Frontend
+Next.js App Router
+Tailwind
+Shadcn UI
+Backend
+Next.js API routes OR Express
+ORM
+Prisma
+DB
+PostgreSQL
+Auth
+NextAuth/Auth.js
+Payments
+Razorpay
+PDF
+React PDF / pdf-lib
+Notifications
+WhatsApp Cloud API
+Nodemailer
+
+14. Final Professional Suggestion
+Do NOT build this as a simple static website.
+Build it as:
+SaaS-ready architecture
+Multi-society capable
+Role-based
+Scalable
+Because later you can sell it to:
+Multiple societies
+Apartment builders
+Housing associations
+This can become a real startup product if architected properly from the start.
