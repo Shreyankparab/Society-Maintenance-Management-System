@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Bell, Search, Menu, ChevronDown, Settings, User, LogOut, X } from "lucide-react";
+import { Bell, Menu, ChevronDown, Settings, User, LogOut, X } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
-
 const NOTIFICATIONS = [
   { id: 1, msg: "Payment received from Flat B-204", time: "2m ago", unread: true },
   { id: 2, msg: "New maintenance bill generated",   time: "1h ago", unread: true },
@@ -56,16 +55,6 @@ export default function TopBar({ sidebarWidth, onMenuClick, title, subtitle }) {
 
       {/* Right */}
       <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexShrink: 0 }}>
-
-        {/* Search — hidden on mobile via CSS class */}
-        <div className="topbar-search" style={{ position: "relative", display: "flex", alignItems: "center" }}>
-          <Search size={13} color="var(--text-dim)" style={{ position: "absolute", left: "0.75rem", pointerEvents: "none" }} />
-          <input
-            placeholder="Search…"
-            className="input-field"
-            style={{ width: 200, paddingLeft: "2.1rem", paddingTop: "0.38rem", paddingBottom: "0.38rem", fontSize: "0.8rem" }}
-          />
-        </div>
 
         {/* Notifications */}
         <div style={{ position: "relative" }}>
