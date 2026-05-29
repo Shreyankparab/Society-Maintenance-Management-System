@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "ResiCentral — Society Maintenance Management",
+  title: "Nirvana Beyond — Society Maintenance Management",
   description:
     "A premium, unified portal for society management, instant online payments, bill generation, and resident communications. Built for modern housing societies.",
   keywords: "society management, maintenance billing, housing society, resident portal, payment gateway",

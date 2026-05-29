@@ -714,16 +714,129 @@ p  { line-height: 1.7; }
 }
 
 /* ─────────────────────────────────────────
-   RESPONSIVE
+   RESPONSIVE UTILITY CLASSES
 ───────────────────────────────────────── */
-@media (max-width: 1024px) {
-  .page-content { margin-left: 0; }
-  .sidebar { transform: translateX(-100%); }
-  .sidebar.open { transform: translateX(0); }
+
+/* Responsive grid helpers */
+.grid-cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+.grid-cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.grid-cols-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+.grid-sidebar { display: grid; grid-template-columns: 1fr 320px; gap: 1.5rem; }
+
+/* Login page layout — desktop first (two columns) */
+.login-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 2.5rem;
+  align-items: center;
 }
 
-@media (max-width: 640px) {
-  h1 { font-size: 1.75rem; }
-  h2 { font-size: 1.35rem; }
-  .page-inner { padding: 1rem; }
+/* Mobile logo: hidden on desktop, shown on mobile only */
+.login-mobile-logo {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
 }
+
+/* Tablet and below: collapse to single column */
+@media (max-width: 900px) {
+  .login-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+/* Mobile: hide the hero panel, show compact logo instead */
+@media (max-width: 640px) {
+  .login-hero { display: none; }
+  .login-mobile-logo { display: flex; }
+}
+
+/* ─────────────────────────────────────────
+   TABLET — 1024px and below
+───────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .page-content { margin-left: 0 !important; }
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+
+  /* Topbar stretches full width on tablet */
+  .topbar { left: 0 !important; }
+
+  /* Grid reductions */
+  .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-sidebar { grid-template-columns: 1fr; }
+}
+
+/* ─────────────────────────────────────────
+   MOBILE — 768px and below
+───────────────────────────────────────── */
+@media (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+
+  .page-inner { padding: 1rem; }
+
+  /* Stat grids collapse to 2 col */
+  .grid-cols-4 { grid-template-columns: repeat(2, 1fr); gap: 0.875rem; }
+  .grid-cols-3 { grid-template-columns: repeat(2, 1fr); gap: 0.875rem; }
+  .grid-cols-2 { grid-template-columns: 1fr; gap: 0.875rem; }
+  .grid-sidebar { grid-template-columns: 1fr; }
+
+  /* Modal full-screen on mobile */
+  .modal-box { max-width: 100%; border-radius: var(--radius-lg); margin: 0.5rem; }
+  .modal-box-lg { max-width: 100%; }
+  .modal-overlay { padding: 0.5rem; align-items: flex-end; }
+
+  /* Table responsive */
+  .data-table thead { display: none; }
+  .data-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid var(--border-subtle);
+    padding: 0.75rem 0;
+  }
+  .data-table tbody td {
+    padding: 0.2rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .data-table tbody td::before {
+    content: attr(data-label);
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+    min-width: 80px;
+  }
+
+  /* Topbar search hide on small screens */
+  .topbar-search { display: none; }
+
+  /* Page inner padding */
+  .page-inner { padding: 0.875rem; }
+
+  /* Stat card smaller on mobile */
+  .stat-card { padding: 1rem; }
+}
+
+/* ─────────────────────────────────────────
+   SMALL MOBILE — 480px and below
+───────────────────────────────────────── */
+@media (max-width: 480px) {
+  h1 { font-size: 1.65rem; letter-spacing: -0.025em; }
+  h2 { font-size: 1.25rem; }
+
+  .grid-cols-4 { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .grid-cols-3 { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .grid-cols-2 { grid-template-columns: 1fr; }
+
+  .page-inner { padding: 0.75rem; }
+
+  .btn-lg { padding: 0.65rem 1.25rem; font-size: 0.9rem; }
+
+  /* Topbar compact */
+  .topbar { padding: 0 0.875rem; }
+}
+

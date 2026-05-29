@@ -5,20 +5,20 @@ import AdminLayout from "@/components/layouts/AdminLayout";
 import { Search, Download, Eye, Mail, Share2, Receipt } from "lucide-react";
 
 const RECEIPTS = [
-  { id: "RCP-0091", flat: "A-101", name: "Arjun Patel",    amount: 3500, period: "May 2025", date: "29 May 2025",  mode: "UPI",    txn: "UPI8821XYZQ"   },
-  { id: "RCP-0090", flat: "B-204", name: "Sneha Rao",      amount: 3500, period: "May 2025", date: "29 May 2025",  mode: "Card",   txn: "CARD20489ABD"  },
-  { id: "RCP-0089", flat: "C-302", name: "Vikram Nair",    amount: 4200, period: "May 2025", date: "28 May 2025",  mode: "NEFT",   txn: "NEFT38109XYZ"  },
-  { id: "RCP-0088", flat: "A-205", name: "Ravi Sharma",    amount: 3500, period: "May 2025", date: "27 May 2025",  mode: "UPI",    txn: "UPI7123PQRS"   },
-  { id: "RCP-0087", flat: "C-104", name: "Manoj Tiwari",   amount: 3500, period: "May 2025", date: "25 May 2025",  mode: "UPI",    txn: "UPI6612ABCD"   },
-  { id: "RCP-0086", flat: "A-101", name: "Arjun Patel",    amount: 3500, period: "Apr 2025", date: "02 Apr 2025",  mode: "UPI",    txn: "UPI5511XYZQ"   },
-  { id: "RCP-0085", flat: "B-204", name: "Sneha Rao",      amount: 3500, period: "Apr 2025", date: "01 Apr 2025",  mode: "Card",   txn: "CARD11489ABD"  },
-  { id: "RCP-0084", flat: "D-403", name: "Meena Iyer",     amount: 3500, period: "Apr 2025", date: "01 Apr 2025",  mode: "Cash",   txn: "CASH-RCPT-0089"},
+  { id: "RCP-0091", flat: "A-101", name: "Arjun Patel", amount: 3500, period: "May 2025", date: "29 May 2025", mode: "UPI", txn: "UPI8821XYZQ" },
+  { id: "RCP-0090", flat: "B-204", name: "Sneha Rao", amount: 3500, period: "May 2025", date: "29 May 2025", mode: "Card", txn: "CARD20489ABD" },
+  { id: "RCP-0089", flat: "C-302", name: "Vikram Nair", amount: 4200, period: "May 2025", date: "28 May 2025", mode: "NEFT", txn: "NEFT38109XYZ" },
+  { id: "RCP-0088", flat: "A-205", name: "Ravi Sharma", amount: 3500, period: "May 2025", date: "27 May 2025", mode: "UPI", txn: "UPI7123PQRS" },
+  { id: "RCP-0087", flat: "C-104", name: "Manoj Tiwari", amount: 3500, period: "May 2025", date: "25 May 2025", mode: "UPI", txn: "UPI6612ABCD" },
+  { id: "RCP-0086", flat: "A-101", name: "Arjun Patel", amount: 3500, period: "Apr 2025", date: "02 Apr 2025", mode: "UPI", txn: "UPI5511XYZQ" },
+  { id: "RCP-0085", flat: "B-204", name: "Sneha Rao", amount: 3500, period: "Apr 2025", date: "01 Apr 2025", mode: "Card", txn: "CARD11489ABD" },
+  { id: "RCP-0084", flat: "D-403", name: "Meena Iyer", amount: 3500, period: "Apr 2025", date: "01 Apr 2025", mode: "Cash", txn: "CASH-RCPT-0089" },
 ];
 
 export default function ReceiptsPage() {
-  const [search, setSearch]       = useState("");
-  const [preview, setPreview]     = useState(null);
-  const [period, setPeriod]       = useState("all");
+  const [search, setSearch] = useState("");
+  const [preview, setPreview] = useState(null);
+  const [period, setPeriod] = useState("all");
 
   const filtered = RECEIPTS.filter((r) => {
     const q = search === "" || r.flat.toLowerCase().includes(search.toLowerCase()) || r.name.toLowerCase().includes(search.toLowerCase()) || r.id.toLowerCase().includes(search.toLowerCase());
@@ -30,11 +30,11 @@ export default function ReceiptsPage() {
     <AdminLayout title="Receipt Management" subtitle="All auto-generated payment receipts">
 
       {/* Stats */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
+      <div className="grid-cols-3" style={{ marginBottom: "1.5rem" }}>
         {[
-          { label: "Total Receipts",  value: RECEIPTS.length },
-          { label: "This Month",      value: RECEIPTS.filter((r) => r.period === "May 2025").length },
-          { label: "Total Value",     value: `₹${(RECEIPTS.reduce((s, r) => s + r.amount, 0) / 1000).toFixed(1)}K` },
+          { label: "Total Receipts", value: RECEIPTS.length },
+          { label: "This Month", value: RECEIPTS.filter((r) => r.period === "May 2025").length },
+          { label: "Total Value", value: `₹${(RECEIPTS.reduce((s, r) => s + r.amount, 0) / 1000).toFixed(1)}K` },
         ].map((s) => (
           <div key={s.label} className="glass-card-flat" style={{ padding: "1.1rem 1.25rem", display: "flex", gap: "1rem", alignItems: "center" }}>
             <div style={{ fontSize: "1.9rem", fontWeight: 900, color: "var(--text-primary)", lineHeight: 1 }}>{s.value}</div>
@@ -121,12 +121,12 @@ export default function ReceiptsPage() {
                 {/* Flat & resident */}
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.25rem" }}>
                   {[
-                    { l: "Flat Number",  v: preview.flat   },
-                    { l: "Resident",     v: preview.name   },
-                    { l: "Period",       v: preview.period  },
-                    { l: "Payment Date", v: preview.date   },
-                    { l: "Payment Mode", v: preview.mode   },
-                    { l: "Transaction ID", v: preview.txn  },
+                    { l: "Flat Number", v: preview.flat },
+                    { l: "Resident", v: preview.name },
+                    { l: "Period", v: preview.period },
+                    { l: "Payment Date", v: preview.date },
+                    { l: "Payment Mode", v: preview.mode },
+                    { l: "Transaction ID", v: preview.txn },
                   ].map((f) => (
                     <div key={f.l} style={{ borderBottom: "1px solid #e5e7eb", paddingBottom: "0.5rem" }}>
                       <div style={{ fontSize: "0.68rem", color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.05em" }}>{f.l}</div>
@@ -143,7 +143,7 @@ export default function ReceiptsPage() {
 
                 {/* Footer */}
                 <div style={{ fontSize: "0.72rem", color: "#9ca3af", textAlign: "center" }}>
-                  This is a computer-generated receipt and does not require a signature. · ResiCentral © 2025
+                  This is a computer-generated receipt and does not require a signature. · Nirvana Beyond © 2025
                 </div>
               </div>
             </div>

@@ -43,7 +43,7 @@ export default function PaymentsPage() {
     <AdminLayout title="Payment Tracking" subtitle="Monitor all maintenance payments">
 
       {/* Summary */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
+      <div className="grid-cols-4" style={{ marginBottom: "1.5rem" }}>
         {[
           { label: "Total Received",  value: `₹${(totalPaid/1000).toFixed(1)}K`,    color: "#15803d" },
           { label: "Pending Approval",value: `₹${(totalPending/1000).toFixed(1)}K`, color: "#b45309" },
@@ -152,11 +152,11 @@ export default function PaymentsPage() {
             ) : (
               <>
                 <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                  <div className="grid-cols-2">
                     <div><label className="label">Flat Number</label><input className="input-field" placeholder="A-101" value={manualForm.flat} onChange={(e) => setManualForm({ ...manualForm, flat: e.target.value })} /></div>
                     <div><label className="label">Resident Name</label><input className="input-field" placeholder="Arjun Patel" value={manualForm.name} onChange={(e) => setManualForm({ ...manualForm, name: e.target.value })} /></div>
                   </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                  <div className="grid-cols-2">
                     <div>
                       <label className="label">Amount (₹)</label>
                       <input className="input-field" type="number" placeholder="3500" value={manualForm.amount} onChange={(e) => setManualForm({ ...manualForm, amount: e.target.value })} />

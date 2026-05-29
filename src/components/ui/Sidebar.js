@@ -12,44 +12,28 @@ import {
 } from "lucide-react";
 
 const NAV = {
-  super_admin: [
-    {
-      section: "Overview",
-      items: [
-        { label: "Dashboard",   icon: LayoutDashboard, href: "/super-admin" },
-        { label: "Societies",   icon: Globe,            href: "/super-admin/societies" },
-        { label: "Users",       icon: Users,            href: "/super-admin/users" },
-      ],
-    },
-    {
-      section: "Analytics",
-      items: [
-        { label: "Reports",     icon: BarChart3,        href: "/super-admin/reports" },
-      ],
-    },
-  ],
   admin: [
     {
       section: "Overview",
       items: [
-        { label: "Dashboard",   icon: LayoutDashboard,  href: "/admin" },
+        { label: "Dashboard", icon: LayoutDashboard, href: "/admin" },
       ],
     },
     {
       section: "Society",
       items: [
-        { label: "Flats",       icon: Building2,        href: "/admin/flats" },
-        { label: "Bills",       icon: FileText,         href: "/admin/bills" },
-        { label: "Payments",    icon: CreditCard,       href: "/admin/payments" },
-        { label: "Receipts",    icon: Receipt,          href: "/admin/receipts" },
+        { label: "Flats", icon: Building2, href: "/admin/flats" },
+        { label: "Bills", icon: FileText, href: "/admin/bills" },
+        { label: "Payments", icon: CreditCard, href: "/admin/payments" },
+        { label: "Receipts", icon: Receipt, href: "/admin/receipts" },
       ],
     },
     {
       section: "Management",
       items: [
-        { label: "Defaulters",  icon: AlertTriangle,    href: "/admin/defaulters" },
-        { label: "Notices",     icon: Megaphone,        href: "/admin/notices" },
-        { label: "Reports",     icon: BarChart3,        href: "/admin/reports" },
+        { label: "Defaulters", icon: AlertTriangle, href: "/admin/defaulters" },
+        { label: "Notices", icon: Megaphone, href: "/admin/notices" },
+        { label: "Reports", icon: BarChart3, href: "/admin/reports" },
       ],
     },
   ],
@@ -57,43 +41,40 @@ const NAV = {
     {
       section: "My Home",
       items: [
-        { label: "Dashboard",   icon: Home,             href: "/resident" },
-        { label: "My Dues",     icon: Wallet,           href: "/resident/dues" },
+        { label: "Dashboard", icon: Home, href: "/resident" },
+        { label: "My Dues", icon: Wallet, href: "/resident/dues" },
       ],
     },
     {
       section: "Payments",
       items: [
-        { label: "History",     icon: CreditCard,       href: "/resident/payments" },
-        { label: "Receipts",    icon: FileBadge,        href: "/resident/receipts" },
+        { label: "History", icon: CreditCard, href: "/resident/payments" },
+        { label: "Receipts", icon: FileBadge, href: "/resident/receipts" },
       ],
     },
     {
       section: "Society",
       items: [
-        { label: "Notices",     icon: Bell,             href: "/resident/notices" },
-        { label: "Complaints",  icon: MessageSquare,    href: "/resident/complaints" },
+        { label: "Notices", icon: Bell, href: "/resident/notices" },
+        { label: "Complaints", icon: MessageSquare, href: "/resident/complaints" },
       ],
     },
   ],
 };
 
 const ROLE_LABEL = {
-  super_admin: "Super Admin",
   admin: "Committee Admin",
   resident: "Resident",
 };
 
 const ROLE_ICON = {
-  super_admin: Shield,
   admin: Building2,
   resident: Home,
 };
 
 const ROLE_COLOR = {
-  super_admin: { bg: "rgba(124,58,237,0.08)", color: "#7c3aed", border: "rgba(124,58,237,0.15)" },
-  admin:       { bg: "rgba(22,163,74,0.08)",  color: "#15803d", border: "rgba(22,163,74,0.15)"  },
-  resident:    { bg: "rgba(37,99,235,0.08)",  color: "#1d4ed8", border: "rgba(37,99,235,0.15)"  },
+  admin: { bg: "rgba(22,163,74,0.08)", color: "#15803d", border: "rgba(22,163,74,0.15)" },
+  resident: { bg: "rgba(37,99,235,0.08)", color: "#1d4ed8", border: "rgba(37,99,235,0.15)" },
 };
 
 export default function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) {
@@ -127,17 +108,10 @@ export default function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobile
           justifyContent: "space-between", gap: "0.75rem",
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", overflow: "hidden" }}>
-            <div style={{
-              width: 36, height: 36, borderRadius: "var(--radius-md)",
-              background: "linear-gradient(135deg, #15803d, #16a34a)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              flexShrink: 0, boxShadow: "0 2px 8px rgba(22,163,74,0.3)",
-            }}>
-              <Building2 size={18} color="#ffffff" strokeWidth={2.5} />
-            </div>
+            <img src="/images/logo.jpg" alt="Nirwana Logo" style={{ width: 56, height: 44, borderRadius: "var(--radius-md)", objectFit: "cover", flexShrink: 0, boxShadow: "0 2px 8px rgba(0,0,0,0.12)" }} />
             {!collapsed && (
               <div style={{ overflow: "hidden" }}>
-                <div style={{ fontWeight: 800, fontSize: "0.95rem", color: "var(--text-primary)", whiteSpace: "nowrap", letterSpacing: "-0.01em" }}>ResiCentral</div>
+                <div style={{ fontWeight: 800, fontSize: "0.95rem", color: "var(--text-primary)", whiteSpace: "nowrap", letterSpacing: "-0.01em" }}>Nirvana Beyond</div>
                 <div style={{ fontSize: "0.62rem", color: "var(--text-dim)", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase" }}>Society Portal</div>
               </div>
             )}

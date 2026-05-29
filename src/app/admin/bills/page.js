@@ -5,27 +5,20 @@ import AdminLayout from "@/components/layouts/AdminLayout";
 import { FileText, Plus, CheckSquare, X, Zap, Building2, Users } from "lucide-react";
 
 const BILL_COMPONENTS = [
-  { key: "maintenance",   label: "Maintenance Charges",  defaultAmt: 2500, required: true  },
-  { key: "water",         label: "Water Charges",        defaultAmt: 300,  required: false },
-  { key: "sinking",       label: "Sinking Fund",         defaultAmt: 200,  required: false },
-  { key: "parking",       label: "Parking Charges",      defaultAmt: 300,  required: false },
-  { key: "security",      label: "Security Fund",        defaultAmt: 150,  required: false },
-  { key: "lift",          label: "Lift Maintenance",     defaultAmt: 100,  required: false },
-  { key: "penalty",       label: "Late Payment Penalty", defaultAmt: 100,  required: false },
+  { key: "maintenance",   label: "Maintenance Charges",  defaultAmt: 2800, required: true  },
+  { key: "penalty",       label: "Late Payment Fee",     defaultAmt: 500,  required: false },
 ];
 
 const PAST_BILLS = [
-  { id: "BILL-0524", period: "Apr 2025", flats: 118, total: "₹4.13L", generated: "01 Apr 2025", status: "active"   },
-  { id: "BILL-0424", period: "Mar 2025", flats: 120, total: "₹4.20L", generated: "01 Mar 2025", status: "closed"   },
-  { id: "BILL-0324", period: "Feb 2025", flats: 117, total: "₹4.09L", generated: "01 Feb 2025", status: "closed"   },
-  { id: "BILL-0224", period: "Jan 2025", flats: 120, total: "₹4.20L", generated: "01 Jan 2025", status: "closed"   },
+  { id: "BILL-0524", period: "Q1 2025 (Jan-Mar)", flats: 30, total: "₹2.52L", generated: "01 Jan 2025", status: "closed"   },
+  { id: "BILL-0424", period: "Apr-Jun 2025", flats: 30, total: "₹2.52L", generated: "01 Apr 2025", status: "active"   },
 ];
 
 export default function BillsPage() {
   const [step, setStep]       = useState(1);
   const [scope, setScope]     = useState("all");
-  const [freq, setFreq]       = useState("monthly");
-  const [period, setPeriod]   = useState("May 2025");
+  const [freq, setFreq]       = useState("quarterly");
+  const [period, setPeriod]   = useState("May-Jul 2025");
   const [dueDate, setDueDate] = useState("10");
   const [comps, setComps]     = useState(
     BILL_COMPONENTS.reduce((acc, c) => ({ ...acc, [c.key]: { enabled: c.required, amount: c.defaultAmt } }), {})
@@ -35,13 +28,24 @@ export default function BillsPage() {
   const toggleComp = (key) => setComps((c) => ({ ...c, [key]: { ...c[key], enabled: !c[key].enabled } }));
   const setAmt = (key, val) => setComps((c) => ({ ...c, [key]: { ...c[key], amount: Number(val) } }));
 
-  const totalPerFlat = Object.entries(comps).reduce((s, [k, v]) => s + (v.enabled ? v.amount : 0), 0);
-  const totalSociety = totalPerFlat * 120;
+  const multiplier = freq === "yearly" ? 12 : 3;
+  const totalPerFlat = Object.entries(comps).reduce((s, [k, v]) => {
+    if (!v.enabled) return s;
+    let amt = v.amount;
+    if (k === "maintenance") {
+      amt = amt * multiplier;
+      if (freq === "yearly") {
+        amt -= 1000; // Apply ₹1,000 discount
+      }
+    }
+    return s + amt;
+  }, 0);
+  const totalSociety = totalPerFlat * 30;
 
   return (
     <AdminLayout title="Bill Generation" subtitle="Generate and manage maintenance bills">
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: "1.5rem" }}>
+      <div className="grid-sidebar">
 
         {/* Generator wizard */}
         <div className="glass-card-flat">
@@ -75,11 +79,10 @@ export default function BillsPage() {
               <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
                 <div>
                   <label className="label">Generate For</label>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.75rem" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.75rem", maxWidth: 400 }}>
                     {[
-                      { val: "all",  label: "All Flats",    icon: Users     },
-                      { val: "wing", label: "Wing-wise",    icon: Building2 },
-                      { val: "selected", label: "Selected", icon: CheckSquare},
+                      { val: "all",  label: "All Flats (Wing A)", icon: Users     },
+                      { val: "selected", label: "Selected Flats", icon: CheckSquare},
                     ].map((opt) => {
                       const Icon = opt.icon;
                       return (
@@ -100,23 +103,12 @@ export default function BillsPage() {
                     })}
                   </div>
                 </div>
-                {scope === "wing" && (
-                  <div>
-                    <label className="label">Select Wings</label>
-                    <div style={{ display: "flex", gap: "0.5rem" }}>
-                      {["A","B","C","D"].map((w) => (
-                        <button key={w} className="btn btn-secondary btn-sm" style={{ minWidth: 44 }}>Wing {w}</button>
-                      ))}
-                    </div>
-                  </div>
-                )}
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                   <div>
                     <label className="label">Frequency</label>
                     <select className="select-field" value={freq} onChange={(e) => setFreq(e.target.value)}>
-                      <option value="monthly">Monthly</option>
-                      <option value="quarterly">Quarterly</option>
-                      <option value="yearly">Yearly</option>
+                      <option value="quarterly">Quarterly (3 Months)</option>
+                      <option value="yearly">Yearly (12 Months - ₹1,000 Discount)</option>
                     </select>
                   </div>
                   <div>
@@ -156,7 +148,7 @@ export default function BillsPage() {
                         style={{ accentColor: "var(--accent-primary)", width: 16, height: 16, cursor: c.required ? "not-allowed" : "pointer" }}
                       />
                       <div style={{ flex: 1 }}>
-                        <div style={{ fontSize: "0.875rem", fontWeight: 600, color: comps[c.key].enabled ? "var(--text-primary)" : "var(--text-dim)" }}>{c.label}</div>
+                        <div style={{ fontSize: "0.875rem", fontWeight: 600, color: comps[c.key].enabled ? "var(--text-primary)" : "var(--text-dim)" }}>{c.label} ({freq === "yearly" ? "12 Months" : "3 Months"})</div>
                         {c.required && <div style={{ fontSize: "0.65rem", color: "var(--accent-primary)", fontWeight: 700 }}>REQUIRED</div>}
                       </div>
                       <div style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
@@ -179,7 +171,7 @@ export default function BillsPage() {
                     <span style={{ fontWeight: 900, color: "#15803d", fontSize: "1.1rem" }}>₹{totalPerFlat.toLocaleString()}</span>
                   </div>
                   <div style={{ display: "flex", justifyContent: "space-between", marginTop: "0.4rem" }}>
-                    <span style={{ fontSize: "0.78rem", color: "var(--text-dim)" }}>Total society (120 flats):</span>
+                    <span style={{ fontSize: "0.78rem", color: "var(--text-dim)" }}>Total society (30 flats):</span>
                     <span style={{ fontWeight: 700, color: "var(--text-secondary)" }}>₹{totalSociety.toLocaleString()}</span>
                   </div>
                 </div>
@@ -195,7 +187,7 @@ export default function BillsPage() {
                     {[
                       { l: "Period",    v: period },
                       { l: "Frequency",v: freq.charAt(0).toUpperCase() + freq.slice(1) },
-                      { l: "Scope",    v: scope === "all" ? "All 120 Flats" : scope === "wing" ? "Wing A, B" : "Selected" },
+                      { l: "Scope",    v: scope === "all" ? "All 30 Flats" : "Selected Flats" },
                       { l: "Due Date", v: `${dueDate}th ${period}` },
                       { l: "Amount/flat", v: `₹${totalPerFlat.toLocaleString()}` },
                       { l: "Total Expected", v: `₹${totalSociety.toLocaleString()}` },
@@ -221,7 +213,7 @@ export default function BillsPage() {
                   <Zap size={28} color="var(--accent-primary)" />
                 </div>
                 <h3 style={{ color: "var(--text-primary)", marginBottom: "0.5rem" }}>Bills Generated!</h3>
-                <p style={{ color: "var(--text-dim)", fontSize: "0.875rem" }}>120 bills generated for {period}. Residents will be notified.</p>
+                <p style={{ color: "var(--text-dim)", fontSize: "0.875rem" }}>30 bills generated for {period}. Residents will be notified.</p>
                 <button className="btn btn-secondary" style={{ marginTop: "1.25rem" }} onClick={() => { setStep(1); setGenerated(false); }}>
                   Generate New Batch
                 </button>

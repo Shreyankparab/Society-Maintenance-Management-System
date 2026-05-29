@@ -9,24 +9,24 @@ import {
 } from "lucide-react";
 
 const STATS = [
-  { label: "Total Collected",   value: "₹3.60L", sub: "This month",         trend: "+12%",  up: true,  icon: TrendingUp,    color: "green"  },
-  { label: "Pending Dues",      value: "₹0.84L", sub: "From 18 flats",      trend: "18 flats", up: false, icon: AlertTriangle, color: "amber"  },
-  { label: "Total Flats",       value: "120",     sub: "4 wings · A B C D",  trend: "96% occ", up: true,  icon: Building2,     color: "blue"   },
-  { label: "Defaulters",        value: "18",      sub: "Need reminders",     trend: "↓5 vs last", up: true, icon: Users,      color: "red"    },
+  { label: "Total Collected",   value: "₹1.05L", sub: "This month",         trend: "+12%",  up: true,  icon: TrendingUp,    color: "green"  },
+  { label: "Pending Dues",      value: "₹0.14L", sub: "From 4 flats",      trend: "4 flats", up: false, icon: AlertTriangle, color: "amber"  },
+  { label: "Total Flats",       value: "30",     sub: "Wing A only",        trend: "100% occ", up: true,  icon: Building2,     color: "blue"   },
+  { label: "Defaulters",        value: "4",      sub: "Need reminders",     trend: "↓2 vs last", up: true, icon: Users,      color: "red"    },
 ];
 
 const RECENT_PAYMENTS = [
   { flat: "A-101", name: "Arjun Patel",   amount: "₹3,500", mode: "UPI",   date: "Today, 10:30 AM",   status: "paid" },
-  { flat: "B-204", name: "Sneha Rao",     amount: "₹3,500", mode: "Card",  date: "Today, 09:15 AM",   status: "paid" },
-  { flat: "C-302", name: "Vikram Nair",   amount: "₹4,200", mode: "NEFT",  date: "Yesterday",         status: "paid" },
-  { flat: "D-403", name: "Meena Iyer",    amount: "₹3,500", mode: "Cash",  date: "Yesterday",         status: "paid" },
+  { flat: "A-204", name: "Sneha Rao",     amount: "₹3,500", mode: "Card",  date: "Today, 09:15 AM",   status: "paid" },
+  { flat: "A-302", name: "Vikram Nair",   amount: "₹4,200", mode: "NEFT",  date: "Yesterday",         status: "paid" },
+  { flat: "A-103", name: "Meena Iyer",    amount: "₹3,500", mode: "Cash",  date: "Yesterday",         status: "paid" },
   { flat: "A-205", name: "Ravi Sharma",   amount: "₹3,500", mode: "UPI",   date: "2 days ago",        status: "paid" },
 ];
 
 const DEFAULTERS = [
-  { flat: "B-102", name: "Rahul Gupta",   amount: "₹7,000", months: 2, lastReminder: "3 days ago" },
-  { flat: "C-201", name: "Pooja Mehta",   amount: "₹3,500", months: 1, lastReminder: "1 week ago" },
-  { flat: "D-304", name: "Anil Kumar",    amount: "₹10,500",months: 3, lastReminder: "Never"      },
+  { flat: "A-102", name: "Rahul Gupta",   amount: "₹7,000", months: 2, lastReminder: "3 days ago" },
+  { flat: "A-201", name: "Pooja Mehta",   amount: "₹3,500", months: 1, lastReminder: "1 week ago" },
+  { flat: "A-304", name: "Anil Kumar",    amount: "₹10,500",months: 3, lastReminder: "Never"      },
 ];
 
 const QUICK_ACTIONS = [
@@ -41,7 +41,7 @@ export default function AdminDashboard() {
     <AdminLayout title="Admin Dashboard" subtitle="Greenwoods CHS — May 2025">
 
       {/* Stats */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem", marginBottom: "2rem" }}>
+      <div className="grid-cols-4" style={{ marginBottom: "2rem" }}>
         {STATS.map((s) => {
           const Icon = s.icon;
           return (
@@ -65,14 +65,14 @@ export default function AdminDashboard() {
       {/* Quick Actions */}
       <div style={{ marginBottom: "2rem" }}>
         <div className="section-title">Quick Actions</div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem" }}>
+        <div className="grid-cols-4">
           {QUICK_ACTIONS.map((a) => {
             const Icon = a.icon;
             return (
               <Link href={a.href} key={a.label} style={{ textDecoration: "none" }}>
                 <div className="quick-action">
                   <div style={{ width: 44, height: 44, borderRadius: "var(--radius-md)", background: `${a.color}1a`, border: `1px solid ${a.color}30`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <Icon size={20} color={a.color} />
+                     <Icon size={20} color={a.color} />
                   </div>
                   <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--text-secondary)" }}>{a.label}</span>
                 </div>
@@ -83,7 +83,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Main Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: "1.5rem" }}>
+      <div className="grid-sidebar">
 
         {/* Recent Payments */}
         <div className="glass-card-flat" style={{ overflow: "hidden" }}>
@@ -148,26 +148,24 @@ export default function AdminDashboard() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.25rem" }}>
           <div>
             <div className="section-title" style={{ marginBottom: "0.2rem" }}>May 2025 Collection Progress</div>
-            <div style={{ fontSize: "0.72rem", color: "var(--text-dim)" }}>₹3.60L of ₹4.20L collected · 85.7%</div>
+            <div style={{ fontSize: "0.72rem", color: "var(--text-dim)" }}>₹1.05L of ₹1.19L collected · 88.2%</div>
           </div>
           <span className="badge badge-success">On Track</span>
         </div>
         <div className="progress-bar-track" style={{ height: 10, marginBottom: "1.5rem" }}>
-          <div className="progress-bar-fill" style={{ width: "85.7%" }} />
+          <div className="progress-bar-fill" style={{ width: "88.2%" }} />
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1rem", maxWidth: 400 }}>
           {[
-            { wing: "Wing A", collected: 30, total: 30, pct: 100 },
-            { wing: "Wing B", collected: 26, total: 30, pct: 87  },
-            { wing: "Wing C", collected: 22, total: 30, pct: 73  },
-            { wing: "Wing D", collected: 24, total: 30, pct: 80  },
+            { wing: "Wing A", collected: 26, total: 30, pct: 88.2 },
           ].map((w) => (
-            <div key={w.wing} style={{ textAlign: "center" }}>
-              <div style={{ fontSize: "0.72rem", color: "var(--text-dim)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.4rem" }}>{w.wing}</div>
-              <div style={{ fontWeight: 800, fontSize: "1.25rem", color: w.pct === 100 ? "#15803d" : w.pct >= 80 ? "var(--text-primary)" : "#b45309" }}>{w.pct}%</div>
-              <div style={{ fontSize: "0.7rem", color: "var(--text-dim)", marginTop: "0.15rem" }}>{w.collected}/{w.total} flats</div>
+            <div key={w.wing} style={{ textAlign: "left" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: "var(--text-dim)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.4rem" }}>
+                <span>{w.wing}</span>
+                <span>{w.collected}/{w.total} flats paid ({w.pct}%)</span>
+              </div>
               <div className="progress-bar-track" style={{ marginTop: "0.5rem" }}>
-                <div className="progress-bar-fill" style={{ width: `${w.pct}%`, background: w.pct === 100 ? "linear-gradient(90deg, #16a34a, #22c55e)" : "linear-gradient(90deg, #d97706, #f59e0b)" }} />
+                <div className="progress-bar-fill" style={{ width: `${w.pct}%`, background: "linear-gradient(90deg, #16a34a, #22c55e)" }} />
               </div>
             </div>
           ))}

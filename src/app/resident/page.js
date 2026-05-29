@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import Link from "next/link";
 import {
@@ -8,24 +9,21 @@ import {
 } from "lucide-react";
 
 const CURRENT_DUE = {
-  period: "May 2025",
+  period: "May-Jul 2025",
   dueDate: "10 May 2025",
-  amount: 3500,
+  amount: 8900,
   status: "overdue",
   daysOverdue: 19,
   items: [
-    { label: "Maintenance Charges",  amount: 2500 },
-    { label: "Water Charges",        amount: 300  },
-    { label: "Sinking Fund",         amount: 200  },
-    { label: "Parking Charges",      amount: 300  },
-    { label: "Late Payment Penalty", amount: 200  },
+    { label: "Maintenance Charges (3 Months)",  amount: 8400 },
+    { label: "Late Payment Fee",               amount: 500  },
   ],
 };
 
 const PAYMENT_HISTORY = [
-  { period: "Apr 2025", amount: 3500, date: "02 Apr 2025", mode: "UPI",  status: "paid", id: "RCP-0086" },
-  { period: "Mar 2025", amount: 3500, date: "05 Mar 2025", mode: "UPI",  status: "paid", id: "RCP-0074" },
-  { period: "Feb 2025", amount: 3500, date: "08 Feb 2025", mode: "Card", status: "paid", id: "RCP-0061" },
+  { period: "Apr 2025", amount: 3500, date: "02 Apr 2025", mode: "UPI",  status: "paid", id: "RCP-0086", txn: "UPI5511XYZQ" },
+  { period: "Mar 2025", amount: 3500, date: "05 Mar 2025", mode: "UPI",  status: "paid", id: "RCP-0074", txn: "UPI4400ABCD" },
+  { period: "Feb 2025", amount: 3500, date: "08 Feb 2025", mode: "Card", status: "paid", id: "RCP-0061", txn: "CARD19900XYZ" },
 ];
 
 const NOTICES = [
@@ -35,7 +33,23 @@ const NOTICES = [
 ];
 
 export default function ResidentDashboard() {
+  const [toast, setToast] = useState(null);
   const totalDue = CURRENT_DUE.items.reduce((s, i) => s + i.amount, 0);
+
+  const handleDownload = (p) => {
+    setToast(`Generating PDF receipt for ${p.period}...`);
+    setTimeout(() => {
+      import("@/lib/receipt").then((mod) => {
+        mod.downloadReceiptPDF(p);
+        setToast(`Receipt generated successfully for ${p.period}!`);
+        setTimeout(() => setToast(null), 3000);
+      }).catch((err) => {
+        console.error(err);
+        setToast("Failed to generate receipt PDF.");
+        setTimeout(() => setToast(null), 3000);
+      });
+    }, 800);
+  };
 
   return (
     <AdminLayout title="My Dashboard" subtitle="Flat A-101 · Greenwoods CHS · Arjun Patel">
@@ -76,11 +90,11 @@ export default function ResidentDashboard() {
       </div>
 
       {/* Quick stats */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "2rem" }}>
+      <div className="grid-cols-3" style={{ marginBottom: "2rem" }}>
         {[
-          { label: "This Month Due",      value: `₹${totalDue.toLocaleString()}`, sub: "Including penalty",   color: "red",    icon: AlertCircle   },
-          { label: "Last Payment",        value: "₹3,500",                         sub: "02 Apr 2025",         color: "green",  icon: CheckCircle2  },
-          { label: "Total Paid (2025)",   value: "₹10,500",                        sub: "3 payments made",     color: "blue",   icon: TrendingDown  },
+          { label: "This Month Due",      value: `₹${totalDue.toLocaleString()}`, sub: "No penalty",          color: "red",    icon: AlertCircle   },
+          { label: "Last Payment",        value: "₹10,800",                        sub: "02 Apr 2025",         color: "green",  icon: CheckCircle2  },
+          { label: "Total Paid (2025)",   value: "₹32,600",                        sub: "Yearly paid",         color: "blue",   icon: TrendingDown  },
         ].map((s) => {
           const Icon = s.icon;
           return (
@@ -97,7 +111,7 @@ export default function ResidentDashboard() {
       </div>
 
       {/* Main grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: "1.5rem" }}>
+      <div className="grid-sidebar">
 
         {/* Recent payments */}
         <div className="glass-card-flat" style={{ overflow: "hidden" }}>
@@ -119,7 +133,7 @@ export default function ResidentDashboard() {
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <div style={{ fontWeight: 800, color: "#15803d" }}>₹{p.amount.toLocaleString()}</div>
-                  <button className="btn btn-ghost btn-sm" style={{ fontSize: "0.7rem", padding: "0.15rem 0.5rem", marginTop: "0.2rem" }}>
+                  <button onClick={() => handleDownload(p)} className="btn btn-ghost btn-sm" style={{ fontSize: "0.7rem", padding: "0.15rem 0.5rem", marginTop: "0.2rem", display: "flex", alignItems: "center", gap: "0.25rem" }}>
                     <Download size={11} /> PDF
                   </button>
                 </div>
@@ -156,7 +170,7 @@ export default function ResidentDashboard() {
       {/* Quick actions */}
       <div style={{ marginTop: "1.5rem" }}>
         <div className="section-title">Quick Access</div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem" }}>
+        <div className="grid-cols-4">
           {[
             { label: "Pay Dues",        icon: Wallet,    href: "/resident/dues",     color: "#ef4444" },
             { label: "View History",    icon: CreditCard,href: "/resident/payments", color: "#22c55e" },
@@ -177,6 +191,21 @@ export default function ResidentDashboard() {
           })}
         </div>
       </div>
+      {/* Notification Toast */}
+      {toast && (
+        <div style={{
+          position: "fixed", bottom: "1.5rem", left: "50%", transform: "translateX(-50%)", right: "auto", zIndex: 9999,
+          background: "linear-gradient(135deg, #15803d, #16a34a)",
+          border: "1px solid rgba(34,197,94,0.35)",
+          color: "white", padding: "1rem 1.5rem", borderRadius: "var(--radius-lg)",
+          boxShadow: "0 10px 25px rgba(0,0,0,0.3)", fontWeight: 700, fontSize: "0.875rem",
+          display: "flex", alignItems: "center", gap: "0.75rem",
+          animation: "slide-up 0.3s ease-out",
+        }}>
+          <CheckCircle2 size={18} color="#064e3b" strokeWidth={2.5} />
+          {toast}
+        </div>
+      )}
     </AdminLayout>
   );
 }

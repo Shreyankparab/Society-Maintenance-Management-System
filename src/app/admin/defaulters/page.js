@@ -5,12 +5,10 @@ import AdminLayout from "@/components/layouts/AdminLayout";
 import { Search, Send, AlertTriangle, Download, Phone, Mail } from "lucide-react";
 
 const DEFAULTERS = [
-  { flat: "B-102", name: "Rahul Gupta",    phone: "9123456789", email: "rahul@email.com", months: 2, amount: 7000,  lastPaid: "Mar 2025", wing: "B", severity: "high"   },
-  { flat: "C-201", name: "Pooja Mehta",    phone: "9876543210", email: "pooja@email.com", months: 1, amount: 3500,  lastPaid: "Apr 2025", wing: "C", severity: "medium" },
-  { flat: "D-304", name: "Anil Kumar",     phone: "9988776655", email: "anil@email.com",  months: 3, amount: 10500, lastPaid: "Feb 2025", wing: "D", severity: "critical"},
+  { flat: "A-102", name: "Rahul Gupta",    phone: "9123456789", email: "rahul@email.com", months: 2, amount: 7000,  lastPaid: "Mar 2025", wing: "A", severity: "high"   },
+  { flat: "A-201", name: "Pooja Mehta",    phone: "9876543210", email: "pooja@email.com", months: 1, amount: 3500,  lastPaid: "Apr 2025", wing: "A", severity: "medium" },
+  { flat: "A-304", name: "Anil Kumar",     phone: "9988776655", email: "anil@email.com",  months: 3, amount: 10500, lastPaid: "Feb 2025", wing: "A", severity: "critical"},
   { flat: "A-202", name: "Neeta Sharma",   phone: "9111222333", email: "neeta@email.com", months: 1, amount: 3500,  lastPaid: "Apr 2025", wing: "A", severity: "medium" },
-  { flat: "B-301", name: "Lakshmi Devi",   phone: "9444555666", email: "laxmi@email.com", months: 1, amount: 3500,  lastPaid: "Apr 2025", wing: "B", severity: "medium" },
-  { flat: "C-402", name: "Deepak Singh",   phone: "9777888999", email: "deepak@email.com",months: 4, amount: 14000, lastPaid: "Jan 2025", wing: "C", severity: "critical"},
 ];
 
 const SEV_CONFIG = {
@@ -39,12 +37,12 @@ export default function DefaultersPage() {
     <AdminLayout title="Defaulters" subtitle="Residents with outstanding maintenance dues">
 
       {/* Summary */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
+      <div className="grid-cols-4" style={{ marginBottom: "1.5rem" }}>
         {[
           { label: "Total Defaulters", value: DEFAULTERS.length, color: "#dc2626"       },
           { label: "Critical (3m+)",   value: DEFAULTERS.filter((d) => d.severity === "critical").length, color: "#dc2626" },
           { label: "Outstanding Dues", value: `₹${(totalDues / 1000).toFixed(1)}K`,   color: "#b45309" },
-          { label: "Wings Affected",   value: new Set(DEFAULTERS.map((d) => d.wing)).size, color: "var(--text-primary)" },
+          { label: "Collection Rate",  value: "88.2%", color: "var(--accent-primary)" },
         ].map((s) => (
           <div key={s.label} className="glass-card-flat" style={{ padding: "1.1rem 1.25rem", display: "flex", gap: "1rem", alignItems: "center" }}>
             <div style={{ fontSize: "1.9rem", fontWeight: 900, color: s.color, lineHeight: 1 }}>{s.value}</div>

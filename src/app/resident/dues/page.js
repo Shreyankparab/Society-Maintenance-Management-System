@@ -3,13 +3,11 @@
 import { useState } from "react";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import { CreditCard, CheckCircle2, AlertCircle, ArrowRight, Smartphone, Building2, Banknote } from "lucide-react";
+import { downloadReceiptPDF } from "@/lib/receipt";
 
 const BILL_ITEMS = [
-  { label: "Maintenance Charges",  amount: 2500, required: true  },
-  { label: "Water Charges",        amount: 300,  required: true  },
-  { label: "Sinking Fund",         amount: 200,  required: true  },
-  { label: "Parking Charges",      amount: 300,  required: true  },
-  { label: "Late Payment Penalty", amount: 200,  required: true  },
+  { label: "Maintenance Charges (3 Months)",  amount: 8400, required: true  },
+  { label: "Late Payment Fee",               amount: 500,  required: true  },
 ];
 
 const PAYMENT_METHODS = [
@@ -23,8 +21,21 @@ export default function DuesPage() {
   const [upiId, setUpiId]       = useState("");
   const [paying, setPaying]     = useState(false);
   const [paid, setPaid]         = useState(false);
+  const [cycle, setCycle]       = useState("quarterly");
 
-  const total = BILL_ITEMS.reduce((s, i) => s + i.amount, 0);
+  const isYearly = cycle === "yearly";
+  const maintenanceAmt = isYearly ? 2800 * 12 : 2800 * 3;
+  const penaltyAmt = isYearly ? 0 : 500;
+  const discountAmt = isYearly ? 1000 : 0;
+  const total = maintenanceAmt - discountAmt + penaltyAmt;
+
+  const currentItems = isYearly ? [
+    { label: "Maintenance Charges (12 Months)", amount: maintenanceAmt },
+    { label: "Yearly Payment Discount",         amount: -discountAmt, isDiscount: true },
+  ] : [
+    { label: "Maintenance Charges (3 Months)",  amount: maintenanceAmt },
+    { label: "Late Payment Fee",               amount: penaltyAmt, isPenalty: true },
+  ];
 
   const handlePay = async () => {
     setPaying(true);
@@ -41,11 +52,23 @@ export default function DuesPage() {
             <CheckCircle2 size={40} color="var(--accent-primary)" />
           </div>
           <h2 style={{ color: "var(--text-primary)", marginBottom: "0.6rem" }}>Payment Successful!</h2>
-          <p style={{ color: "var(--text-dim)", fontSize: "0.95rem", marginBottom: "0.4rem" }}>₹{total.toLocaleString()} paid for May 2025 maintenance</p>
+          <p style={{ color: "var(--text-dim)", fontSize: "0.95rem", marginBottom: "0.4rem" }}>₹{total.toLocaleString()} paid for {cycle === "yearly" ? "Yearly" : "Quarterly"} maintenance</p>
           <p style={{ color: "var(--text-dim)", fontSize: "0.82rem", marginBottom: "2rem" }}>Transaction ID: TXN-{Math.random().toString(36).slice(2, 10).toUpperCase()} · Receipt sent to your email</p>
           <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center" }}>
             <button className="btn btn-secondary" onClick={() => setPaid(false)}>Back to Dues</button>
-            <button className="btn btn-primary">Download Receipt</button>
+            <button 
+              className="btn btn-primary"
+              onClick={() => downloadReceiptPDF({
+                id: "RCP-" + Math.floor(1000 + Math.random() * 9000),
+                period: isYearly ? "May 2025 - Apr 2026 (Yearly)" : "May-Jul 2025 (Quarterly)",
+                amount: total,
+                date: new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }),
+                mode: PAYMENT_METHODS.find((m) => m.id === method)?.label || "UPI",
+                txn: "TXN" + Math.random().toString(36).slice(2, 10).toUpperCase()
+              })}
+            >
+              Download Receipt
+            </button>
           </div>
         </div>
       </AdminLayout>
@@ -57,28 +80,48 @@ export default function DuesPage() {
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
 
         {/* Overdue alert */}
-        <div style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: "var(--radius-lg)", padding: "1rem 1.25rem", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
-          <AlertCircle size={18} color="#dc2626" />
-          <span style={{ fontSize: "0.875rem", color: "#fca5a5" }}>
-            Payment was due on <strong>10 May 2025</strong>. A late penalty of ₹200 has been applied.
+        <div style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.2)", borderRadius: "var(--radius-lg)", padding: "1rem 1.25rem", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+          <AlertCircle size={18} color="var(--accent-primary)" />
+          <span style={{ fontSize: "0.875rem", color: "#a7f3d0" }}>
+            Payment is due on <strong>10 May 2025</strong>. Please complete your payment on time.
           </span>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: "1.5rem" }}>
+        {/* Segmented billing cycle selector */}
+        <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1.25rem", background: "rgba(255,255,255,0.03)", padding: "0.35rem", borderRadius: "var(--radius-lg)", border: "1px solid var(--border-subtle)" }}>
+          <button
+            onClick={() => setCycle("quarterly")}
+            className={`btn btn-sm ${cycle === "quarterly" ? "btn-primary" : "btn-ghost"}`}
+            style={{ flex: 1, padding: "0.6rem", fontWeight: 700, fontSize: "0.82rem" }}
+          >
+            Quarterly (3 Months)
+          </button>
+          <button
+            onClick={() => setCycle("yearly")}
+            className={`btn btn-sm ${cycle === "yearly" ? "btn-primary" : "btn-ghost"}`}
+            style={{ flex: 1, padding: "0.6rem", fontWeight: 700, fontSize: "0.82rem", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.35rem" }}
+          >
+            Yearly (12 Months)
+            <span style={{ fontSize: "0.65rem", background: "rgba(34,197,94,0.2)", color: "#22c55e", padding: "0.1rem 0.4rem", borderRadius: "99px", fontWeight: 800 }}>-₹1,000 Disc.</span>
+          </button>
+        </div>
+
+        <div className="grid-sidebar">
 
           {/* Bill breakdown */}
-          <div className="glass-card-flat" style={{ overflow: "hidden" }}>
+          <div className="glass-card-flat" style={{ overflow: "hidden", alignSelf: "start" }}>
             <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid var(--border-subtle)" }}>
               <div className="section-title" style={{ marginBottom: 0 }}>Bill Breakdown — May 2025</div>
             </div>
             <div style={{ padding: "1rem 1.5rem" }}>
-              {BILL_ITEMS.map((item, i) => (
-                <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.875rem 0", borderBottom: i < BILL_ITEMS.length - 1 ? "1px solid var(--border-subtle)" : "none" }}>
-                  <span style={{ fontSize: "0.875rem", color: "var(--text-secondary)", fontWeight: item.label.includes("Penalty") ? 700 : 500, color: item.label.includes("Penalty") ? "#b45309" : "var(--text-secondary)" }}>
+              {currentItems.map((item, i) => (
+                <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.875rem 0", borderBottom: i < currentItems.length - 1 ? "1px solid var(--border-subtle)" : "none" }}>
+                  <span style={{ fontSize: "0.875rem", color: item.isDiscount ? "#22c55e" : item.isPenalty ? "#ef4444" : "var(--text-secondary)", fontWeight: (item.isDiscount || item.isPenalty) ? 700 : 500 }}>
                     {item.label}
-                    {item.label.includes("Penalty") && <span style={{ fontSize: "0.68rem", color: "#dc2626", marginLeft: "0.4rem" }}>LATE</span>}
                   </span>
-                  <span style={{ fontWeight: 700, color: "var(--text-primary)" }}>₹{item.amount.toLocaleString()}</span>
+                  <span style={{ fontWeight: 700, color: item.isDiscount ? "#22c55e" : item.isPenalty ? "#ef4444" : "var(--text-primary)" }}>
+                    {item.isDiscount ? "- " : ""}₹{Math.abs(item.amount).toLocaleString()}
+                  </span>
                 </div>
               ))}
             </div>

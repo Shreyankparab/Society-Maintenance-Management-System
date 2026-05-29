@@ -9,15 +9,6 @@ export const useAuth = () => useContext(AuthContext);
 // ─── Mock users for demo ───────────────────────────────────────────────────
 const MOCK_USERS = [
   {
-    id: "sa-001",
-    email: "superadmin@resicentral.in",
-    password: "admin123",
-    role: "super_admin",
-    name: "Rajesh Sharma",
-    avatar: "RS",
-    society: null,
-  },
-  {
     id: "ad-001",
     email: "admin@greenwoodssociety.in",
     password: "admin123",
@@ -41,7 +32,6 @@ const MOCK_USERS = [
 ];
 
 const ROLE_ROUTES = {
-  super_admin: "/super-admin",
   admin: "/admin",
   resident: "/resident",
 };

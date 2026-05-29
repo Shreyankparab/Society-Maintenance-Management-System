@@ -3,12 +3,13 @@
 import { useState } from "react";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import { Download, Eye, Share2, Mail, X, Receipt as ReceiptIcon } from "lucide-react";
+import { downloadReceiptPDF } from "@/lib/receipt";
 
 const RECEIPTS = [
-  { id: "RCP-0086", period: "Apr 2025", amount: 3500, date: "02 Apr 2025", mode: "UPI",  txn: "UPI5511XYZQ"  },
-  { id: "RCP-0074", period: "Mar 2025", amount: 3500, date: "05 Mar 2025", mode: "UPI",  txn: "UPI4400ABCD"  },
+  { id: "RCP-0086", period: "Apr 2025", amount: 3500, date: "02 Apr 2025", mode: "UPI", txn: "UPI5511XYZQ" },
+  { id: "RCP-0074", period: "Mar 2025", amount: 3500, date: "05 Mar 2025", mode: "UPI", txn: "UPI4400ABCD" },
   { id: "RCP-0061", period: "Feb 2025", amount: 3500, date: "08 Feb 2025", mode: "Card", txn: "CARD19900XYZ" },
-  { id: "RCP-0049", period: "Jan 2025", amount: 3500, date: "12 Jan 2025", mode: "UPI",  txn: "UPI3300PQRS"  },
+  { id: "RCP-0049", period: "Jan 2025", amount: 3500, date: "12 Jan 2025", mode: "UPI", txn: "UPI3300PQRS" },
 ];
 
 export default function ResidentReceiptsPage() {
@@ -20,11 +21,11 @@ export default function ResidentReceiptsPage() {
       <div style={{ maxWidth: 800, margin: "0 auto" }}>
 
         {/* Summary */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
+        <div className="grid-cols-3" style={{ marginBottom: "1.5rem" }}>
           {[
             { label: "Total Receipts", value: RECEIPTS.length },
-            { label: "Total Paid",     value: `₹${(RECEIPTS.reduce((s, r) => s + r.amount, 0)).toLocaleString()}` },
-            { label: "Year",           value: "2025" },
+            { label: "Total Paid", value: `₹${(RECEIPTS.reduce((s, r) => s + r.amount, 0)).toLocaleString()}` },
+            { label: "Year", value: "2025" },
           ].map((s) => (
             <div key={s.label} className="glass-card-flat" style={{ padding: "1rem 1.25rem", display: "flex", gap: "0.875rem", alignItems: "center" }}>
               <div style={{ fontSize: "1.65rem", fontWeight: 900, color: "var(--text-primary)" }}>{s.value}</div>
@@ -67,7 +68,11 @@ export default function ResidentReceiptsPage() {
                 >
                   <Eye size={14} /> Preview
                 </button>
-                <button className="btn btn-primary btn-sm" style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                <button 
+                  className="btn btn-primary btn-sm" 
+                  onClick={() => downloadReceiptPDF(r)}
+                  style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}
+                >
                   <Download size={14} /> PDF
                 </button>
                 <button className="btn btn-ghost btn-icon btn-sm" title="Email receipt"><Mail size={14} /></button>
@@ -103,14 +108,14 @@ export default function ResidentReceiptsPage() {
                 {/* Resident details */}
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
                   {[
-                    { l: "Resident Name",  v: "Arjun Patel"   },
-                    { l: "Flat Number",    v: "A-101"          },
-                    { l: "Wing",           v: "Wing A"         },
-                    { l: "Mobile",         v: "9876543210"     },
-                    { l: "Payment Period", v: preview.period   },
-                    { l: "Payment Date",   v: preview.date     },
-                    { l: "Payment Mode",   v: preview.mode     },
-                    { l: "Transaction ID", v: preview.txn      },
+                    { l: "Resident Name", v: "Arjun Patel" },
+                    { l: "Flat Number", v: "A-101" },
+                    { l: "Wing", v: "Wing A" },
+                    { l: "Mobile", v: "9876543210" },
+                    { l: "Payment Period", v: preview.period },
+                    { l: "Payment Date", v: preview.date },
+                    { l: "Payment Mode", v: preview.mode },
+                    { l: "Transaction ID", v: preview.txn },
                   ].map((f) => (
                     <div key={f.l} style={{ paddingBottom: "0.6rem", borderBottom: "1px solid #f3f4f6" }}>
                       <div style={{ fontSize: "0.65rem", color: "#9ca3af", textTransform: "uppercase", letterSpacing: "0.05em" }}>{f.l}</div>
@@ -150,7 +155,7 @@ export default function ResidentReceiptsPage() {
                 </div>
 
                 <div style={{ fontSize: "0.68rem", color: "#9ca3af", textAlign: "center", marginTop: "1rem" }}>
-                  This is a computer-generated receipt and does not require a signature. · Powered by ResiCentral
+                  This is a computer-generated receipt and does not require a signature. · Powered by Nirvana Beyond
                 </div>
               </div>
             </div>
@@ -159,7 +164,12 @@ export default function ResidentReceiptsPage() {
             <div style={{ padding: "1rem", display: "flex", gap: "0.75rem", justifyContent: "flex-end", borderTop: "1px solid var(--border-subtle)" }}>
               <button className="btn btn-secondary" onClick={() => setPreview(null)}>Close</button>
               <button className="btn btn-ghost btn-sm"><Mail size={14} /> Email</button>
-              <button className="btn btn-primary"><Download size={15} /> Download PDF</button>
+              <button 
+                className="btn btn-primary"
+                onClick={() => downloadReceiptPDF(preview)}
+              >
+                <Download size={15} /> Download PDF
+              </button>
             </div>
           </div>
         </div>

@@ -1,21 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "@/components/ui/Sidebar";
 import TopBar from "@/components/ui/TopBar";
 
 export default function AdminLayout({ children, title, subtitle }) {
   const [collapsed, setCollapsed]   = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isMobile, setIsMobile]     = useState(false);
 
-  const sidebarW = collapsed
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 1024);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  // On mobile: sidebar floats over content (no margin shift needed)
+  const sidebarW = isMobile
+    ? "0px"
+    : collapsed
     ? "var(--sidebar-collapsed)"
     : "var(--sidebar-width)";
 
   return (
     <div style={{ minHeight: "100vh", background: "var(--surface-0)" }}>
       <Sidebar
-        collapsed={collapsed}
+        collapsed={isMobile ? false : collapsed}
         setCollapsed={setCollapsed}
         mobileOpen={mobileOpen}
         setMobileOpen={setMobileOpen}

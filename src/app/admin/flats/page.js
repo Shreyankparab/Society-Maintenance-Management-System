@@ -12,21 +12,8 @@ const WINGS = [
       { no: "A-102", owner: "Sunita Verma",   tenant: "Raj Kapoor",  area: 850,  parking: 1, type: "2BHK", status: "rented"   },
       { no: "A-201", owner: "Harish Jain",    tenant: "—",           area: 1050, parking: 2, type: "3BHK", status: "occupied" },
       { no: "A-202", owner: "Deepa Nair",     tenant: "—",           area: 850,  parking: 1, type: "2BHK", status: "vacant"   },
-    ],
-  },
-  {
-    wing: "Wing B",
-    flats: [
-      { no: "B-101", owner: "Ravi Kumar",     tenant: "—",           area: 950,  parking: 1, type: "2BHK", status: "occupied" },
-      { no: "B-102", owner: "Rahul Gupta",    tenant: "—",           area: 950,  parking: 1, type: "2BHK", status: "occupied" },
-      { no: "B-201", owner: "Meena Shah",     tenant: "Om Prakash",  area: 1200, parking: 2, type: "3BHK", status: "rented"   },
-    ],
-  },
-  {
-    wing: "Wing C",
-    flats: [
-      { no: "C-101", owner: "Priya Malhotra", tenant: "—",           area: 750,  parking: 1, type: "1BHK", status: "occupied" },
-      { no: "C-201", owner: "Vikram Nair",    tenant: "—",           area: 850,  parking: 1, type: "2BHK", status: "occupied" },
+      { no: "A-301", owner: "Ravi Kumar",     tenant: "—",           area: 950,  parking: 1, type: "2BHK", status: "occupied" },
+      { no: "A-302", owner: "Rahul Gupta",    tenant: "—",           area: 950,  parking: 1, type: "2BHK", status: "occupied" },
     ],
   },
 ];
@@ -39,7 +26,7 @@ const STATUS_CONFIG = {
 
 export default function FlatsPage() {
   const [search, setSearch]       = useState("");
-  const [expanded, setExpanded]   = useState({ "Wing A": true, "Wing B": true, "Wing C": true });
+  const [expanded, setExpanded]   = useState({ "Wing A": true });
   const [addModal, setAddModal]   = useState(false);
   const [form, setForm]           = useState({ wing: "A", flatNo: "", owner: "", tenant: "", area: "", type: "2BHK", parking: "1" });
 
@@ -54,15 +41,15 @@ export default function FlatsPage() {
   const totalVacant   = allFlats.filter((f) => f.status === "vacant").length;
 
   return (
-    <AdminLayout title="Flat Management" subtitle="Greenwoods CHS · 120 total flats · 4 wings">
+    <AdminLayout title="Flat Management" subtitle="Greenwoods CHS · 30 total flats · Wing A">
 
       {/* Stats */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", marginBottom: "1.5rem" }}>
+      <div className="grid-cols-4" style={{ marginBottom: "1.5rem" }}>
         {[
-          { label: "Total Flats",   value: allFlats.length, color: "var(--text-primary)" },
-          { label: "Owner-occupied",value: totalOccupied,   color: "#15803d"  },
-          { label: "Rented",        value: totalRented,    color: "#93c5fd"  },
-          { label: "Vacant",        value: totalVacant,    color: "var(--text-dim)" },
+          { label: "Total Flats",   value: 30, color: "var(--text-primary)" },
+          { label: "Owner-occupied",value: 24,   color: "#15803d"  },
+          { label: "Rented",        value: 5,    color: "#93c5fd"  },
+          { label: "Vacant",        value: 1,    color: "var(--text-dim)" },
         ].map((s) => (
           <div key={s.label} className="glass-card-flat" style={{ padding: "1.1rem 1.25rem", display: "flex", alignItems: "center", gap: "1rem" }}>
             <div style={{ fontSize: "2rem", fontWeight: 900, color: s.color, lineHeight: 1 }}>{s.value}</div>
@@ -108,7 +95,7 @@ export default function FlatsPage() {
                 </div>
                 <div>
                   <div style={{ fontWeight: 700, color: "var(--text-primary)" }}>{w.wing}</div>
-                  <div style={{ fontSize: "0.72rem", color: "var(--text-dim)" }}>{w.flats.length} flats</div>
+                  <div style={{ fontSize: "0.72rem", color: "var(--text-dim)" }}>30 flats total</div>
                 </div>
               </div>
               {expanded[w.wing] ? <ChevronDown size={18} color="var(--text-dim)" /> : <ChevronRight size={18} color="var(--text-dim)" />}
@@ -136,21 +123,18 @@ export default function FlatsPage() {
               <button className="btn btn-ghost btn-icon" onClick={() => setAddModal(false)}><X size={18} /></button>
             </div>
             <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-                <div>
-                  <label className="label">Wing</label>
-                  <select className="select-field" value={form.wing} onChange={(e) => setForm({ ...form, wing: e.target.value })}>
-                    {["A","B","C","D"].map((w) => <option key={w}>{w}</option>)}
-                  </select>
-                </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1rem" }}>
                 <div>
                   <label className="label">Flat Number</label>
-                  <input className="input-field" placeholder="101" value={form.flatNo} onChange={(e) => setForm({ ...form, flatNo: e.target.value })} />
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <span style={{ fontWeight: 700, color: "var(--text-primary)", background: "var(--surface-0)", padding: "0.5rem 0.75rem", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-md)" }}>A-</span>
+                    <input className="input-field" placeholder="101" value={form.flatNo} onChange={(e) => setForm({ ...form, flatNo: e.target.value })} style={{ flex: 1 }} />
+                  </div>
                 </div>
               </div>
               <div><label className="label">Owner Name</label><input className="input-field" placeholder="Full name" value={form.owner} onChange={(e) => setForm({ ...form, owner: e.target.value })} /></div>
               <div><label className="label">Tenant Name (if applicable)</label><input className="input-field" placeholder="Leave blank if owner-occupied" value={form.tenant} onChange={(e) => setForm({ ...form, tenant: e.target.value })} /></div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem" }}>
+              <div className="grid-cols-3">
                 <div>
                   <label className="label">Area (sqft)</label>
                   <input className="input-field" type="number" placeholder="850" value={form.area} onChange={(e) => setForm({ ...form, area: e.target.value })} />

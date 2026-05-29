@@ -4,35 +4,32 @@ import AdminLayout from "@/components/layouts/AdminLayout";
 import { Download, BarChart3, TrendingUp } from "lucide-react";
 
 const MONTHLY = [
-  { month: "Dec", collected: 360000, pending: 60000,  defaulters: 6  },
-  { month: "Jan", collected: 420000, pending: 0,       defaulters: 0  },
-  { month: "Feb", collected: 385000, pending: 35000,   defaulters: 4  },
-  { month: "Mar", collected: 420000, pending: 0,       defaulters: 0  },
-  { month: "Apr", collected: 399000, pending: 21000,   defaulters: 3  },
-  { month: "May", collected: 360000, pending: 60000,   defaulters: 6  },
+  { month: "Dec", collected: 105000, pending: 0,       defaulters: 0  },
+  { month: "Jan", collected: 105000, pending: 0,       defaulters: 0  },
+  { month: "Feb", collected: 98000,  pending: 7000,    defaulters: 2  },
+  { month: "Mar", collected: 105000, pending: 0,       defaulters: 0  },
+  { month: "Apr", collected: 101500, pending: 3500,    defaulters: 1  },
+  { month: "May", collected: 105000, pending: 14000,   defaulters: 4  },
 ];
 
 const WING_STATS = [
-  { wing: "Wing A", flats: 30, paid: 30, amount: 105000, pct: 100 },
-  { wing: "Wing B", flats: 30, paid: 26, amount: 91000,  pct: 87  },
-  { wing: "Wing C", flats: 30, paid: 22, amount: 77000,  pct: 73  },
-  { wing: "Wing D", flats: 30, paid: 24, amount: 84000,  pct: 80  },
+  { wing: "Wing A", flats: 30, paid: 26, amount: 105000, pct: 88 },
 ];
 
 const max = Math.max(...MONTHLY.map((m) => m.collected));
-const fmt = (n) => `₹${(n / 1000).toFixed(0)}K`;
+const fmt = (n) => `₹${(n / 1000).toFixed(1)}K`;
 
 export default function AdminReportsPage() {
   return (
-    <AdminLayout title="Reports" subtitle="Greenwoods CHS · Financial Overview">
+    <AdminLayout title="Reports" subtitle="Greenwoods CHS · Wing A Overview">
 
       {/* KPIs */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem", marginBottom: "2rem" }}>
+      <div className="grid-cols-4" style={{ marginBottom: "2rem" }}>
         {[
-          { label: "YTD Collected",   value: "₹24.44L", sub: "Jan–May 2025",     color: "green"  },
-          { label: "YTD Pending",     value: "₹1.76L",  sub: "Across all months", color: "amber"  },
-          { label: "Avg Rate",        value: "88.6%",    sub: "+3.1% vs 2024",    color: "blue"   },
-          { label: "Total Defaulters",value: "19",       sub: "Cumulative 2025",  color: "red"    },
+          { label: "YTD Collected",   value: "₹6.19L",  sub: "Jan–May 2025",     color: "green"  },
+          { label: "YTD Pending",     value: "₹24.5K",  sub: "Across Wing A",    color: "amber"  },
+          { label: "Avg Rate",        value: "96.2%",   sub: "+3.1% vs 2024",    color: "blue"   },
+          { label: "Total Defaulters",value: "4",       sub: "Active in Wing A", color: "red"    },
         ].map((k) => (
           <div key={k.label} className={`glass-card stat-card ${k.color}`}>
             <div style={{ fontSize: "2rem", fontWeight: 900, color: "var(--text-primary)", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: "0.4rem" }}>{k.value}</div>
@@ -42,7 +39,7 @@ export default function AdminReportsPage() {
         ))}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: "1.5rem", marginBottom: "1.5rem" }}>
+      <div className="grid-sidebar" style={{ marginBottom: "1.5rem" }}>
         {/* Monthly chart */}
         <div className="glass-card-flat">
           <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid var(--border-subtle)", display: "flex", justifyContent: "space-between" }}>

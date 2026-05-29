@@ -95,7 +95,7 @@ export default function NoticesPage() {
                 <label className="label">Message</label>
                 <textarea className="input-field" rows={5} placeholder="Write your notice here…" value={form.body} onChange={(e) => setForm({ ...form, body: e.target.value })} style={{ resize: "vertical" }} />
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+              <div className="grid-cols-2">
                 <div>
                   <label className="label">Category</label>
                   <select className="select-field" value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}>

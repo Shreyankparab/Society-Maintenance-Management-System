@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import { CheckCircle2, Clock, Download, ArrowUpRight } from "lucide-react";
 
@@ -7,21 +8,37 @@ const PAYMENTS = [
   { id: "RCP-0086", period: "Apr 2025", amount: 3500, date: "02 Apr 2025", mode: "UPI",   status: "paid",    txn: "UPI5511XYZQ"   },
   { id: "RCP-0074", period: "Mar 2025", amount: 3500, date: "05 Mar 2025", mode: "UPI",   status: "paid",    txn: "UPI4400ABCD"   },
   { id: "RCP-0061", period: "Feb 2025", amount: 3500, date: "08 Feb 2025", mode: "Card",  status: "paid",    txn: "CARD19900XYZ"  },
-  { id: "—",        period: "Jan 2025", amount: 3500, date: "12 Jan 2025", mode: "UPI",   status: "paid",    txn: "UPI3300PQRS"   },
+  { id: "RCP-0049", period: "Jan 2025", amount: 3500, date: "12 Jan 2025", mode: "UPI",   status: "paid",    txn: "UPI3300PQRS"   },
   { id: "—",        period: "May 2025", amount: 3700, date: "—",           mode: "—",     status: "overdue", txn: "—"             },
 ];
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 export default function PaymentHistoryPage() {
+  const [toast, setToast] = useState(null);
   const paid   = PAYMENTS.filter((p) => p.status === "paid");
   const totalPaid = paid.reduce((s, p) => s + p.amount, 0);
+
+  const handleDownload = (p) => {
+    setToast(`Generating PDF receipt for ${p.period}...`);
+    setTimeout(() => {
+      import("@/lib/receipt").then((mod) => {
+        mod.downloadReceiptPDF(p);
+        setToast(`Receipt generated successfully for ${p.period}!`);
+        setTimeout(() => setToast(null), 3000);
+      }).catch((err) => {
+        console.error(err);
+        setToast("Failed to generate receipt PDF.");
+        setTimeout(() => setToast(null), 3000);
+      });
+    }, 800);
+  };
 
   return (
     <AdminLayout title="Payment History" subtitle="All your maintenance payment records">
 
       {/* Summary */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "2rem" }}>
+      <div className="grid-cols-3" style={{ marginBottom: "2rem" }}>
         {[
           { label: "Total Paid (2025)", value: `₹${totalPaid.toLocaleString()}`, color: "#15803d" },
           { label: "Payments Made",     value: paid.length,                       color: "var(--text-primary)" },
@@ -37,7 +54,8 @@ export default function PaymentHistoryPage() {
       {/* Year calendar heatmap */}
       <div className="glass-card-flat" style={{ padding: "1.5rem", marginBottom: "1.5rem" }}>
         <div className="section-title" style={{ marginBottom: "1rem" }}>2025 Payment Calendar</div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: "0.5rem" }}>
+        <div style={{ overflowX: "auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: "0.5rem", minWidth: 420 }}>
           {MONTHS.map((m, i) => {
             const isPaid    = i < 4;
             const isOverdue = i === 4;
@@ -59,6 +77,7 @@ export default function PaymentHistoryPage() {
               </div>
             );
           })}
+        </div>
         </div>
         <div style={{ display: "flex", gap: "1.5rem", marginTop: "0.75rem" }}>
           {[
@@ -105,7 +124,7 @@ export default function PaymentHistoryPage() {
                         {p.status === "paid" ? "Paid" : "Overdue"}
                       </span>
                       {p.status === "paid" && (
-                        <button className="btn btn-ghost btn-icon btn-sm"><Download size={14} /></button>
+                        <button onClick={() => handleDownload(p)} className="btn btn-ghost btn-icon btn-sm"><Download size={14} /></button>
                       )}
                     </div>
                   </div>
@@ -115,6 +134,22 @@ export default function PaymentHistoryPage() {
           </div>
         </div>
       </div>
+
+      {/* Notification Toast */}
+      {toast && (
+        <div style={{
+          position: "fixed", bottom: "2rem", right: "2rem", zIndex: 9999,
+          background: "linear-gradient(135deg, #15803d, #16a34a)",
+          border: "1px solid rgba(34,197,94,0.35)",
+          color: "white", padding: "1rem 1.5rem", borderRadius: "var(--radius-lg)",
+          boxShadow: "0 10px 25px rgba(0,0,0,0.3)", fontWeight: 700, fontSize: "0.875rem",
+          display: "flex", alignItems: "center", gap: "0.75rem",
+          animation: "slide-up 0.3s ease-out",
+        }}>
+          <CheckCircle2 size={18} color="#064e3b" strokeWidth={2.5} />
+          {toast}
+        </div>
+      )}
     </AdminLayout>
   );
 }
