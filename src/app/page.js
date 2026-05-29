@@ -35,7 +35,7 @@ export default function LandingPage() {
         padding: "0.875rem 1.5rem",
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
-          <img src="/images/logo.jpg" alt="Nirwana Logo" style={{ width: 48, height: 38, borderRadius: "var(--radius-md)", objectFit: "cover", boxShadow: "0 2px 8px rgba(0,0,0,0.12)" }} />
+          <img src="/images/logo.jpg" alt="Nirwana Logo" style={{ width: 48, height: 38, borderRadius: "var(--radius-md)", objectFit: "cover" }} />
           <span style={{ fontWeight: 800, fontSize: "1rem", color: "#0f172a", letterSpacing: "-0.01em" }}>Nirwana</span>
         </div>
         <nav style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>

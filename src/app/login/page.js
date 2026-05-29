@@ -47,11 +47,11 @@ function LoginForm() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    await new Promise((r) => setTimeout(r, 700));
-    const result = login(email, password);
-    if (!result.success) { setError(result.error || "Invalid credentials"); setLoading(false); return; }
-    const routes = { admin: "/admin", resident: "/resident" };
-    router.push(routes[result.user.role] || "/");
+    const result = await login(email, password);
+    if (!result.success) {
+      setError(result.error || "Invalid credentials");
+      setLoading(false);
+    }
   };
 
   return (
