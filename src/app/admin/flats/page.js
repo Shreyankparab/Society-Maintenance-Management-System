@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import AdminLayout from "@/components/layouts/AdminLayout";
-import { Search, Plus, Building2, Edit2, Trash2, Users, Home, X, ChevronDown, ChevronRight } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { Search, Plus, Building2, Edit2, Trash2, Users, Home, X, ChevronDown, ChevronRight, Check } from "lucide-react";
 
 const WINGS = [
   {
@@ -25,10 +26,14 @@ const STATUS_CONFIG = {
 };
 
 export default function FlatsPage() {
+  const [tab, setTab]               = useState("directory"); // "directory" | "pending"
   const [search, setSearch]       = useState("");
   const [expanded, setExpanded]   = useState({ "Wing A": true });
   const [addModal, setAddModal]   = useState(false);
   const [form, setForm]           = useState({ wing: "A", flatNo: "", owner: "", tenant: "", area: "", type: "2BHK", parking: "1" });
+
+  const { pendingRegistrations, approveRegistration } = useAuth();
+  const pendingCount = pendingRegistrations?.length || 0;
 
   const toggle = (w) => setExpanded((e) => ({ ...e, [w]: !e[w] }));
   const allFlats = WINGS.flatMap((w) => w.flats);
@@ -58,60 +63,139 @@ export default function FlatsPage() {
         ))}
       </div>
 
-      {/* Header */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
-        <div style={{ position: "relative" }}>
-          <Search size={14} color="var(--text-dim)" style={{ position: "absolute", left: "0.75rem", top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }} />
-          <input className="input-field" placeholder="Search flats or owners…" value={search} onChange={(e) => setSearch(e.target.value)} style={{ paddingLeft: "2.25rem", width: 260 }} />
-        </div>
-        <button id="add-flat-btn" className="btn btn-primary" onClick={() => setAddModal(true)}>
-          <Plus size={16} /> Add Flat
+      {/* Section Tabs */}
+      <div style={{ display: "flex", gap: "1rem", borderBottom: "1px solid var(--border-subtle)", marginBottom: "1.5rem" }}>
+        <button
+          onClick={() => setTab("directory")}
+          style={{
+            background: "none", border: "none", borderBottom: tab === "directory" ? "2px solid var(--accent-primary)" : "2px solid transparent",
+            padding: "0.75rem 1rem", fontSize: "0.875rem", fontWeight: 700, cursor: "pointer",
+            color: tab === "directory" ? "var(--accent-primary)" : "var(--text-dim)",
+            transition: "all 0.2s"
+          }}
+        >
+          Flat Directory
+        </button>
+        <button
+          onClick={() => setTab("pending")}
+          style={{
+            background: "none", border: "none", borderBottom: tab === "pending" ? "2px solid var(--accent-primary)" : "2px solid transparent",
+            padding: "0.75rem 1rem", fontSize: "0.875rem", fontWeight: 700, cursor: "pointer",
+            color: tab === "pending" ? "var(--accent-primary)" : "var(--text-dim)",
+            display: "flex", alignItems: "center", gap: "0.5rem",
+            transition: "all 0.2s"
+          }}
+        >
+          Pending Approvals
+          {pendingCount > 0 && (
+            <span style={{
+              background: "#dc2626", color: "white", borderRadius: "99px",
+              padding: "0.15rem 0.45rem", fontSize: "0.68rem", fontWeight: 800
+            }}>
+              {pendingCount}
+            </span>
+          )}
         </button>
       </div>
 
-      {/* If searching — flat table */}
-      {filtered ? (
-        <div className="glass-card-flat" style={{ overflow: "hidden" }}>
-          <table className="data-table">
-            <thead><tr><th>Flat No</th><th>Owner</th><th>Tenant</th><th>Area</th><th>Type</th><th>Parking</th><th>Status</th><th></th></tr></thead>
-            <tbody>
-              {filtered.map((f) => (
-                <FlatRow key={f.no} f={f} />
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        /* Wing-wise accordion */
-        WINGS.map((w) => (
-          <div key={w.wing} className="glass-card-flat" style={{ marginBottom: "1rem", overflow: "hidden" }}>
-            <div
-              onClick={() => toggle(w.wing)}
-              style={{ padding: "1rem 1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", borderBottom: expanded[w.wing] ? "1px solid var(--border-subtle)" : "none" }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                <div style={{ width: 36, height: 36, borderRadius: "var(--radius-md)", background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <Building2 size={18} color="var(--accent-primary)" />
-                </div>
-                <div>
-                  <div style={{ fontWeight: 700, color: "var(--text-primary)" }}>{w.wing}</div>
-                  <div style={{ fontSize: "0.72rem", color: "var(--text-dim)" }}>30 flats total</div>
-                </div>
-              </div>
-              {expanded[w.wing] ? <ChevronDown size={18} color="var(--text-dim)" /> : <ChevronRight size={18} color="var(--text-dim)" />}
+      {tab === "directory" ? (
+        <>
+          {/* Header */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
+            <div style={{ position: "relative" }}>
+              <Search size={14} color="var(--text-dim)" style={{ position: "absolute", left: "0.75rem", top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }} />
+              <input className="input-field" placeholder="Search flats or owners…" value={search} onChange={(e) => setSearch(e.target.value)} style={{ paddingLeft: "2.25rem", width: 260 }} />
             </div>
-            {expanded[w.wing] && (
-              <div style={{ overflowX: "auto" }}>
-                <table className="data-table">
-                  <thead><tr><th>Flat No</th><th>Owner</th><th>Tenant</th><th>Area (sqft)</th><th>Type</th><th>Parking</th><th>Status</th><th></th></tr></thead>
-                  <tbody>
-                    {w.flats.map((f) => <FlatRow key={f.no} f={f} />)}
-                  </tbody>
-                </table>
-              </div>
-            )}
+            <button id="add-flat-btn" className="btn btn-primary" onClick={() => setAddModal(true)}>
+              <Plus size={16} /> Add Flat
+            </button>
           </div>
-        ))
+
+          {/* If searching — flat table */}
+          {filtered ? (
+            <div className="glass-card-flat" style={{ overflow: "hidden" }}>
+              <table className="data-table">
+                <thead><tr><th>Flat No</th><th>Owner</th><th>Tenant</th><th>Area</th><th>Type</th><th>Parking</th><th>Status</th><th></th></tr></thead>
+                <tbody>
+                  {filtered.map((f) => (
+                    <FlatRow key={f.no} f={f} />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            /* Wing-wise accordion */
+            WINGS.map((w) => (
+              <div key={w.wing} className="glass-card-flat" style={{ marginBottom: "1rem", overflow: "hidden" }}>
+                <div
+                  onClick={() => toggle(w.wing)}
+                  style={{ padding: "1rem 1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", borderBottom: expanded[w.wing] ? "1px solid var(--border-subtle)" : "none" }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                    <div style={{ width: 36, height: 36, borderRadius: "var(--radius-md)", background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <Building2 size={18} color="var(--accent-primary)" />
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 700, color: "var(--text-primary)" }}>{w.wing}</div>
+                      <div style={{ fontSize: "0.72rem", color: "var(--text-dim)" }}>30 flats total</div>
+                    </div>
+                  </div>
+                  {expanded[w.wing] ? <ChevronDown size={18} color="var(--text-dim)" /> : <ChevronRight size={18} color="var(--text-dim)" />}
+                </div>
+                {expanded[w.wing] && (
+                  <div style={{ overflowX: "auto" }}>
+                    <table className="data-table">
+                      <thead><tr><th>Flat No</th><th>Owner</th><th>Tenant</th><th>Area (sqft)</th><th>Type</th><th>Parking</th><th>Status</th><th></th></tr></thead>
+                      <tbody>
+                        {w.flats.map((f) => <FlatRow key={f.no} f={f} />)}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            ))
+          )}
+        </>
+      ) : (
+        /* PENDING APPROVALS TAB VIEW */
+        pendingCount === 0 ? (
+          <div className="glass-card-flat" style={{ padding: "3rem 1.5rem", textAlign: "center" }}>
+            <div style={{ width: 48, height: 48, borderRadius: "50%", background: "#f0fdf4", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1rem" }}>
+              <Check size={20} color="#16a34a" />
+            </div>
+            <h3 style={{ fontWeight: 700, color: "var(--text-primary)" }}>All Caught Up!</h3>
+            <p style={{ color: "var(--text-dim)", fontSize: "0.875rem", marginTop: "0.4rem" }}>There are no resident registration profiles awaiting approval.</p>
+          </div>
+        ) : (
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1rem" }}>
+            {pendingRegistrations.map((p) => (
+              <div key={p.id} className="glass-card-flat" style={{ padding: "1.25rem 1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
+                <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+                  <div className="avatar" style={{ background: "rgba(34,197,94,0.1)", color: "var(--accent-primary)", fontWeight: 700, fontSize: "0.9rem", display: "flex", alignItems: "center", justifyContent: "center", width: 40, height: 40, borderRadius: "50%" }}>
+                    {p.avatar}
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "0.95rem" }}>{p.name}</div>
+                    <div style={{ fontSize: "0.78rem", color: "var(--text-dim)", marginTop: "0.25rem" }}>
+                      {p.email} · <span style={{ fontWeight: 700, color: "#15803d" }}>Flat {p.wing}-{p.flat}</span>
+                    </div>
+                  </div>
+                </div>
+                <div style={{ display: "flex", gap: "0.5rem" }}>
+                  <button
+                    onClick={() => {
+                      approveRegistration(p.id);
+                    }}
+                    className="btn btn-primary btn-sm"
+                    style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}
+                  >
+                    <Check size={14} /> Approve Profile
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )
       )}
 
       {/* Add Flat Modal */}

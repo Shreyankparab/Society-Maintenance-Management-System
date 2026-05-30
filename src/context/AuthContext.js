@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 const AuthContext = createContext({});
@@ -40,7 +40,77 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser]       = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState(null);
+  const [users, setUsers]     = useState(MOCK_USERS);
+  const [pendingRegistrations, setPendingRegistrations] = useState([]);
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const localUsers = localStorage.getItem("smms_users");
+      if (localUsers) {
+        setUsers(JSON.parse(localUsers));
+      } else {
+        localStorage.setItem("smms_users", JSON.stringify(MOCK_USERS));
+      }
+
+      const localPending = localStorage.getItem("smms_pending");
+      if (localPending) {
+        setPendingRegistrations(JSON.parse(localPending));
+      }
+    }
+  }, []);
+
+  const registerUser = useCallback(async (data) => {
+    // Simulate API delay
+    await new Promise((r) => setTimeout(r, 600));
+
+    const emailExists = users.some(u => u.email.toLowerCase() === data.email.toLowerCase()) ||
+                        pendingRegistrations.some(p => p.email.toLowerCase() === data.email.toLowerCase());
+
+    if (emailExists) {
+      return { success: false, error: "This email address is already registered." };
+    }
+
+    const newPending = {
+      id: "pending-" + Date.now(),
+      name: data.name,
+      email: data.email.toLowerCase(),
+      password: data.password,
+      role: "resident",
+      society: "Greenwoods CHS",
+      flat: data.flat || "A-101",
+      wing: data.wing || "A",
+      avatar: data.name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2),
+      status: "pending"
+    };
+
+    const updatedPending = [...pendingRegistrations, newPending];
+    setPendingRegistrations(updatedPending);
+    localStorage.setItem("smms_pending", JSON.stringify(updatedPending));
+    return { success: true };
+  }, [users, pendingRegistrations]);
+
+  const approveRegistration = useCallback((id) => {
+    const record = pendingRegistrations.find(p => p.id === id);
+    if (!record) return { success: false, error: "Record not found" };
+
+    const newActiveUser = {
+      ...record,
+      id: "res-" + Date.now(),
+      status: "active"
+    };
+
+    const updatedPending = pendingRegistrations.filter(p => p.id !== id);
+    const updatedUsers = [...users, newActiveUser];
+
+    setPendingRegistrations(updatedPending);
+    setUsers(updatedUsers);
+
+    localStorage.setItem("smms_pending", JSON.stringify(updatedPending));
+    localStorage.setItem("smms_users", JSON.stringify(updatedUsers));
+
+    return { success: true };
+  }, [users, pendingRegistrations]);
 
   const login = useCallback(async (email, password) => {
     setLoading(true);
@@ -50,8 +120,16 @@ export const AuthProvider = ({ children }) => {
     try {
       // Simulate async auth
       await new Promise((r) => setTimeout(r, 800));
-      const found = MOCK_USERS.find(
-        (u) => u.email === email && u.password === password
+
+      const isPending = pendingRegistrations.some(
+        (p) => p.email.toLowerCase() === email.toLowerCase() && p.password === password
+      );
+      if (isPending) {
+        throw new Error("Your account is pending approval by the Committee Admin.");
+      }
+
+      const found = users.find(
+        (u) => u.email.toLowerCase() === email.toLowerCase() && u.password === password
       );
       if (!found) throw new Error("Invalid credentials. Check email & password.");
       setUser(found);
@@ -68,7 +146,7 @@ export const AuthProvider = ({ children }) => {
       router.push(targetRoute);
     }
     return { success: true };
-  }, [router]);
+  }, [router, users, pendingRegistrations]);
 
   const logout = useCallback(() => {
     setUser(null);
@@ -76,7 +154,7 @@ export const AuthProvider = ({ children }) => {
   }, [router]);
 
   return (
-    <AuthContext.Provider value={{ user, loading, error, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, error, login, logout, registerUser, approveRegistration, pendingRegistrations }}>
       {children}
     </AuthContext.Provider>
   );
