@@ -47,9 +47,14 @@ function LoginForm() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    const result = await login(email, password);
-    if (!result.success) {
-      setError(result.error || "Invalid credentials");
+    try {
+      const result = await login(email, password);
+      if (!result.success) {
+        setError(result.error || "Invalid credentials");
+        setLoading(false);
+      }
+    } catch (err) {
+      setError("An unexpected error occurred");
       setLoading(false);
     }
   };

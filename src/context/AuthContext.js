@@ -45,6 +45,8 @@ export const AuthProvider = ({ children }) => {
   const login = useCallback(async (email, password) => {
     setLoading(true);
     setError(null);
+    let success = false;
+    let targetRoute = "";
     try {
       // Simulate async auth
       await new Promise((r) => setTimeout(r, 800));
@@ -53,14 +55,19 @@ export const AuthProvider = ({ children }) => {
       );
       if (!found) throw new Error("Invalid credentials. Check email & password.");
       setUser(found);
-      router.push(ROLE_ROUTES[found.role]);
-      return { success: true };
+      success = true;
+      targetRoute = ROLE_ROUTES[found.role];
     } catch (err) {
       setError(err.message);
       return { success: false, error: err.message };
     } finally {
       setLoading(false);
     }
+
+    if (success && targetRoute) {
+      router.push(targetRoute);
+    }
+    return { success: true };
   }, [router]);
 
   const logout = useCallback(() => {
