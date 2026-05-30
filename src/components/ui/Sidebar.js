@@ -49,7 +49,6 @@ const NAV = {
       section: "Payments",
       items: [
         { label: "History", icon: CreditCard, href: "/resident/payments" },
-        { label: "Receipts", icon: FileBadge, href: "/resident/receipts" },
       ],
     },
     {
