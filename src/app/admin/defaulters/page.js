@@ -5,10 +5,10 @@ import AdminLayout from "@/components/layouts/AdminLayout";
 import { Search, Send, AlertTriangle, Download, Phone, Mail } from "lucide-react";
 
 const DEFAULTERS = [
-  { flat: "A-102", name: "Rahul Gupta",    phone: "9123456789", email: "rahul@email.com", months: 2, amount: 7000,  lastPaid: "Mar 2025", wing: "A", severity: "high"   },
-  { flat: "A-201", name: "Pooja Mehta",    phone: "9876543210", email: "pooja@email.com", months: 1, amount: 3500,  lastPaid: "Apr 2025", wing: "A", severity: "medium" },
-  { flat: "A-304", name: "Anil Kumar",     phone: "9988776655", email: "anil@email.com",  months: 3, amount: 10500, lastPaid: "Feb 2025", wing: "A", severity: "critical"},
-  { flat: "A-202", name: "Neeta Sharma",   phone: "9111222333", email: "neeta@email.com", months: 1, amount: 3500,  lastPaid: "Apr 2025", wing: "A", severity: "medium" },
+  { flat: "E-102", name: "Rahul Gupta",    phone: "9123456789", email: "rahul@email.com", months: 2, amount: 7000,  lastPaid: "Mar 2025", wing: "E", severity: "high"   },
+  { flat: "E-201", name: "Pooja Mehta",    phone: "9876543210", email: "pooja@email.com", months: 1, amount: 3500,  lastPaid: "Apr 2025", wing: "E", severity: "medium" },
+  { flat: "E-304", name: "Anil Kumar",     phone: "9988776655", email: "anil@email.com",  months: 3, amount: 10500, lastPaid: "Feb 2025", wing: "E", severity: "critical"},
+  { flat: "E-202", name: "Neeta Sharma",   phone: "9111222333", email: "neeta@email.com", months: 1, amount: 3500,  lastPaid: "Apr 2025", wing: "E", severity: "medium" },
 ];
 
 const SEV_CONFIG = {

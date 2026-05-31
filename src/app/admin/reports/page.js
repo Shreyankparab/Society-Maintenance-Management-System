@@ -13,7 +13,7 @@ const MONTHLY = [
 ];
 
 const WING_STATS = [
-  { wing: "Wing A", flats: 30, paid: 26, amount: 105000, pct: 88 },
+  { wing: "Whing E", flats: 30, paid: 26, amount: 105000, pct: 88 },
 ];
 
 const max = Math.max(...MONTHLY.map((m) => m.collected));
@@ -21,15 +21,15 @@ const fmt = (n) => `₹${(n / 1000).toFixed(1)}K`;
 
 export default function AdminReportsPage() {
   return (
-    <AdminLayout title="Reports" subtitle="Greenwoods CHS · Wing A Overview">
+    <AdminLayout title="Reports" subtitle="Nirvana Beyond · Whing E Overview">
 
       {/* KPIs */}
       <div className="grid-cols-4" style={{ marginBottom: "2rem" }}>
         {[
           { label: "YTD Collected",   value: "₹6.19L",  sub: "Jan–May 2025",     color: "green"  },
-          { label: "YTD Pending",     value: "₹24.5K",  sub: "Across Wing A",    color: "amber"  },
+          { label: "YTD Pending",     value: "₹24.5K",  sub: "Across Whing E",    color: "amber"  },
           { label: "Avg Rate",        value: "96.2%",   sub: "+3.1% vs 2024",    color: "blue"   },
-          { label: "Total Defaulters",value: "4",       sub: "Active in Wing A", color: "red"    },
+          { label: "Total Defaulters",value: "4",       sub: "Active in Whing E", color: "red"    },
         ].map((k) => (
           <div key={k.label} className={`glass-card stat-card ${k.color}`}>
             <div style={{ fontSize: "2rem", fontWeight: 900, color: "var(--text-primary)", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: "0.4rem" }}>{k.value}</div>

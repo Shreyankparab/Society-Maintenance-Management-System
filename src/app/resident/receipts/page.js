@@ -93,7 +93,7 @@ export default function ResidentReceiptsPage() {
               <div style={{ background: "linear-gradient(135deg, #0a2e18, #16a34a)", padding: "1.75rem 2rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                   <div>
-                    <div style={{ fontWeight: 900, fontSize: "1.25rem", color: "white", letterSpacing: "-0.01em" }}>Greenwoods CHS</div>
+                    <div style={{ fontWeight: 900, fontSize: "1.25rem", color: "white", letterSpacing: "-0.01em" }}>Nirvana Beyond</div>
                     <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.65)", marginTop: "0.25rem" }}>Plot 12, Sector 9, Navi Mumbai – 400706</div>
                     <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.5)", marginTop: "0.1rem" }}>Reg. No: MH/MUM/CHS/12345/2020</div>
                   </div>
@@ -109,8 +109,8 @@ export default function ResidentReceiptsPage() {
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
                   {[
                     { l: "Resident Name", v: "Arjun Patel" },
-                    { l: "Flat Number", v: "A-101" },
-                    { l: "Wing", v: "Wing A" },
+                    { l: "Flat Number", v: "E-101" },
+                    { l: "Wing", v: "Whing E" },
                     { l: "Mobile", v: "9876543210" },
                     { l: "Payment Period", v: preview.period },
                     { l: "Payment Date", v: preview.date },

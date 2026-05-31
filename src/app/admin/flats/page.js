@@ -7,14 +7,14 @@ import { Search, Plus, Building2, Edit2, Trash2, Users, Home, X, ChevronDown, Ch
 
 const WINGS = [
   {
-    wing: "Wing A",
+    wing: "Whing E",
     flats: [
-      { no: "A-101", owner: "Arjun Patel",    tenant: "—",           area: 850,  parking: 1, type: "2BHK", status: "occupied" },
-      { no: "A-102", owner: "Sunita Verma",   tenant: "Raj Kapoor",  area: 850,  parking: 1, type: "2BHK", status: "rented"   },
-      { no: "A-201", owner: "Harish Jain",    tenant: "—",           area: 1050, parking: 2, type: "3BHK", status: "occupied" },
-      { no: "A-202", owner: "Deepa Nair",     tenant: "—",           area: 850,  parking: 1, type: "2BHK", status: "vacant"   },
-      { no: "A-301", owner: "Ravi Kumar",     tenant: "—",           area: 950,  parking: 1, type: "2BHK", status: "occupied" },
-      { no: "A-302", owner: "Rahul Gupta",    tenant: "—",           area: 950,  parking: 1, type: "2BHK", status: "occupied" },
+      { no: "E-101", owner: "Arjun Patel",    tenant: "—",           area: 850,  parking: 1, type: "2BHK", status: "occupied" },
+      { no: "E-102", owner: "Sunita Verma",   tenant: "Raj Kapoor",  area: 850,  parking: 1, type: "2BHK", status: "rented"   },
+      { no: "E-201", owner: "Harish Jain",    tenant: "—",           area: 1050, parking: 2, type: "3BHK", status: "occupied" },
+      { no: "E-202", owner: "Deepa Nair",     tenant: "—",           area: 850,  parking: 1, type: "2BHK", status: "vacant"   },
+      { no: "E-301", owner: "Ravi Kumar",     tenant: "—",           area: 950,  parking: 1, type: "2BHK", status: "occupied" },
+      { no: "E-302", owner: "Rahul Gupta",    tenant: "—",           area: 950,  parking: 1, type: "2BHK", status: "occupied" },
     ],
   },
 ];
@@ -28,9 +28,9 @@ const STATUS_CONFIG = {
 export default function FlatsPage() {
   const [tab, setTab]               = useState("directory"); // "directory" | "pending"
   const [search, setSearch]       = useState("");
-  const [expanded, setExpanded]   = useState({ "Wing A": true });
+  const [expanded, setExpanded]   = useState({ "Whing E": true });
   const [addModal, setAddModal]   = useState(false);
-  const [form, setForm]           = useState({ wing: "A", flatNo: "", owner: "", tenant: "", area: "", type: "2BHK", parking: "1" });
+  const [form, setForm]           = useState({ wing: "E", flatNo: "", owner: "", tenant: "", area: "", type: "2BHK", parking: "1" });
 
   const { pendingRegistrations, approveRegistration } = useAuth();
   const pendingCount = pendingRegistrations?.length || 0;
@@ -46,7 +46,7 @@ export default function FlatsPage() {
   const totalVacant   = allFlats.filter((f) => f.status === "vacant").length;
 
   return (
-    <AdminLayout title="Flat Management" subtitle="Greenwoods CHS · 30 total flats · Wing A">
+    <AdminLayout title="Flat Management" subtitle="Nirvana Beyond · 30 total flats · Whing E">
 
       {/* Stats */}
       <div className="grid-cols-4" style={{ marginBottom: "1.5rem" }}>

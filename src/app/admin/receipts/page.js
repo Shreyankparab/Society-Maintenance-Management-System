@@ -5,12 +5,12 @@ import AdminLayout from "@/components/layouts/AdminLayout";
 import { Search, Download, Eye, Mail, Share2, Receipt } from "lucide-react";
 
 const RECEIPTS = [
-  { id: "RCP-0091", flat: "A-101", name: "Arjun Patel", amount: 3500, period: "May 2025", date: "29 May 2025", mode: "UPI", txn: "UPI8821XYZQ" },
+  { id: "RCP-0091", flat: "E-101", name: "Arjun Patel", amount: 3500, period: "May 2025", date: "29 May 2025", mode: "UPI", txn: "UPI8821XYZQ" },
   { id: "RCP-0090", flat: "B-204", name: "Sneha Rao", amount: 3500, period: "May 2025", date: "29 May 2025", mode: "Card", txn: "CARD20489ABD" },
   { id: "RCP-0089", flat: "C-302", name: "Vikram Nair", amount: 4200, period: "May 2025", date: "28 May 2025", mode: "NEFT", txn: "NEFT38109XYZ" },
-  { id: "RCP-0088", flat: "A-205", name: "Ravi Sharma", amount: 3500, period: "May 2025", date: "27 May 2025", mode: "UPI", txn: "UPI7123PQRS" },
+  { id: "RCP-0088", flat: "E-205", name: "Ravi Sharma", amount: 3500, period: "May 2025", date: "27 May 2025", mode: "UPI", txn: "UPI7123PQRS" },
   { id: "RCP-0087", flat: "C-104", name: "Manoj Tiwari", amount: 3500, period: "May 2025", date: "25 May 2025", mode: "UPI", txn: "UPI6612ABCD" },
-  { id: "RCP-0086", flat: "A-101", name: "Arjun Patel", amount: 3500, period: "Apr 2025", date: "02 Apr 2025", mode: "UPI", txn: "UPI5511XYZQ" },
+  { id: "RCP-0086", flat: "E-101", name: "Arjun Patel", amount: 3500, period: "Apr 2025", date: "02 Apr 2025", mode: "UPI", txn: "UPI5511XYZQ" },
   { id: "RCP-0085", flat: "B-204", name: "Sneha Rao", amount: 3500, period: "Apr 2025", date: "01 Apr 2025", mode: "Card", txn: "CARD11489ABD" },
   { id: "RCP-0084", flat: "D-403", name: "Meena Iyer", amount: 3500, period: "Apr 2025", date: "01 Apr 2025", mode: "Cash", txn: "CASH-RCPT-0089" },
 ];
@@ -108,7 +108,7 @@ export default function ReceiptsPage() {
               {/* Header */}
               <div style={{ background: "linear-gradient(135deg, #0a2e18, #16a34a)", padding: "1.5rem 2rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <div>
-                  <div style={{ fontWeight: 900, fontSize: "1.15rem", color: "white" }}>Greenwoods CHS</div>
+                  <div style={{ fontWeight: 900, fontSize: "1.15rem", color: "white" }}>Nirvana Beyond</div>
                   <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.7)", marginTop: "0.2rem" }}>Plot 12, Sector 9, Navi Mumbai – 400706</div>
                 </div>
                 <div style={{ textAlign: "right" }}>

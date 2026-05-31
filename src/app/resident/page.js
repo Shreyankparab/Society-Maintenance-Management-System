@@ -52,7 +52,7 @@ export default function ResidentDashboard() {
   };
 
   return (
-    <AdminLayout title="My Dashboard" subtitle="Flat A-101 · Greenwoods CHS · Arjun Patel">
+    <AdminLayout title="My Dashboard" subtitle="Flat E-101 · Nirvana Beyond · Arjun Patel">
 
       {/* Current due banner */}
       <div style={{

@@ -13,9 +13,9 @@ const DEMO_ACCOUNTS = [
     color: "#15803d",
     bg: "#f0fdf4",
     border: "#bbf7d0",
-    email: "admin@greenwoodssociety.in",
+    email: "admin@nirvanabeyond.in",
     password: "admin123",
-    desc: "Greenwoods CHS",
+    desc: "Nirvana Beyond",
   },
   {
     role: "resident",
@@ -24,9 +24,9 @@ const DEMO_ACCOUNTS = [
     color: "#1d4ed8",
     bg: "#eff6ff",
     border: "#bfdbfe",
-    email: "resident@greenwoodssociety.in",
+    email: "resident@nirvanabeyond.in",
     password: "flat101",
-    desc: "Flat A-101",
+    desc: "Flat E-101",
   },
 ];
 
@@ -39,7 +39,7 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [wing, setWing] = useState("A");
+  const [wing, setWing] = useState("E");
   const [flat, setFlat] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -104,7 +104,7 @@ function LoginForm() {
           {/* Left — branding panel, hidden on small mobile via CSS */}
           <div className="login-hero" style={{ padding: "1.5rem" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "2.5rem" }}>
-              <img src="/images/logo.jpg" alt="Nirwana Logo" style={{ width: 64, height: 50, borderRadius: "var(--radius-md)", objectFit: "cover" }} />
+              <img src="/images/logo.jpg" alt="Nirvana Beyond Logo" style={{ width: 64, height: 50, borderRadius: "var(--radius-md)", objectFit: "cover" }} />
               <div>
                 <div style={{ fontWeight: 800, fontSize: "1.1rem", color: "#0f172a" }}>Nirvana Beyond</div>
                 <div style={{ fontSize: "0.65rem", color: "#94a3b8", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase" }}>Society Portal</div>
@@ -136,7 +136,7 @@ function LoginForm() {
           <div>
             {/* Compact logo shown only on mobile via CSS */}
             <div className="login-mobile-logo">
-              <img src="/images/logo.jpg" alt="Nirwana Logo" style={{ width: 52, height: 40, borderRadius: "var(--radius-md)", objectFit: "cover" }} />
+              <img src="/images/logo.jpg" alt="Nirvana Beyond Logo" style={{ width: 52, height: 40, borderRadius: "var(--radius-md)", objectFit: "cover" }} />
               <div>
                 <div style={{ fontWeight: 800, fontSize: "1rem", color: "#0f172a" }}>Nirvana Beyond</div>
                 <div style={{ fontSize: "0.6rem", color: "#94a3b8", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase" }}>Society Portal</div>
@@ -154,7 +154,7 @@ function LoginForm() {
                   {mode === "signin"
                     ? "Enter your credentials to access your dashboard"
                     : mode === "register"
-                    ? "Register as a resident for Greenwoods CHS"
+                    ? "Register as a resident for Nirvana Beyond"
                     : "Awaiting Committee Admin approval..."
                   }
                 </p>
@@ -212,7 +212,7 @@ function LoginForm() {
                       <button
                         type="button"
                         onClick={() => {
-                          setEmail("admin@greenwoodssociety.in");
+                          setEmail("admin@nirvanabeyond.in");
                           setPassword("admin123");
                           setMode("signin");
                           setError("");
@@ -368,7 +368,7 @@ function LoginForm() {
                       <input
                         className="input-field"
                         type="email"
-                        placeholder="resident@greenwoodssociety.in"
+                        placeholder="resident@nirvanabeyond.in"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -399,7 +399,7 @@ function LoginForm() {
                       <div>
                         <label className="label">Wing</label>
                         <select className="select-field" value={wing} onChange={(e) => setWing(e.target.value)}>
-                          {["A"].map((w) => <option key={w}>{w}</option>)}
+                          {["E"].map((w) => <option key={w}>{w}</option>)}
                         </select>
                       </div>
                       <div>

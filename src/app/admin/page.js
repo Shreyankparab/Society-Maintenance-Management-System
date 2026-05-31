@@ -11,22 +11,22 @@ import {
 const STATS = [
   { label: "Total Collected",   value: "₹1.05L", sub: "This month",         trend: "+12%",  up: true,  icon: TrendingUp,    color: "green"  },
   { label: "Pending Dues",      value: "₹0.14L", sub: "From 4 flats",      trend: "4 flats", up: false, icon: AlertTriangle, color: "amber"  },
-  { label: "Total Flats",       value: "30",     sub: "Wing A only",        trend: "100% occ", up: true,  icon: Building2,     color: "blue"   },
+  { label: "Total Flats",       value: "30",     sub: "Whing E only",        trend: "100% occ", up: true,  icon: Building2,     color: "blue"   },
   { label: "Defaulters",        value: "4",      sub: "Need reminders",     trend: "↓2 vs last", up: true, icon: Users,      color: "red"    },
 ];
 
 const RECENT_PAYMENTS = [
-  { flat: "A-101", name: "Arjun Patel",   amount: "₹3,500", mode: "UPI",   date: "Today, 10:30 AM",   status: "paid" },
-  { flat: "A-204", name: "Sneha Rao",     amount: "₹3,500", mode: "Card",  date: "Today, 09:15 AM",   status: "paid" },
-  { flat: "A-302", name: "Vikram Nair",   amount: "₹4,200", mode: "NEFT",  date: "Yesterday",         status: "paid" },
-  { flat: "A-103", name: "Meena Iyer",    amount: "₹3,500", mode: "Cash",  date: "Yesterday",         status: "paid" },
-  { flat: "A-205", name: "Ravi Sharma",   amount: "₹3,500", mode: "UPI",   date: "2 days ago",        status: "paid" },
+  { flat: "E-101", name: "Arjun Patel",   amount: "₹3,500", mode: "UPI",   date: "Today, 10:30 AM",   status: "paid" },
+  { flat: "E-204", name: "Sneha Rao",     amount: "₹3,500", mode: "Card",  date: "Today, 09:15 AM",   status: "paid" },
+  { flat: "E-302", name: "Vikram Nair",   amount: "₹4,200", mode: "NEFT",  date: "Yesterday",         status: "paid" },
+  { flat: "E-103", name: "Meena Iyer",    amount: "₹3,500", mode: "Cash",  date: "Yesterday",         status: "paid" },
+  { flat: "E-205", name: "Ravi Sharma",   amount: "₹3,500", mode: "UPI",   date: "2 days ago",        status: "paid" },
 ];
 
 const DEFAULTERS = [
-  { flat: "A-102", name: "Rahul Gupta",   amount: "₹7,000", months: 2, lastReminder: "3 days ago" },
-  { flat: "A-201", name: "Pooja Mehta",   amount: "₹3,500", months: 1, lastReminder: "1 week ago" },
-  { flat: "A-304", name: "Anil Kumar",    amount: "₹10,500",months: 3, lastReminder: "Never"      },
+  { flat: "E-102", name: "Rahul Gupta",   amount: "₹7,000", months: 2, lastReminder: "3 days ago" },
+  { flat: "E-201", name: "Pooja Mehta",   amount: "₹3,500", months: 1, lastReminder: "1 week ago" },
+  { flat: "E-304", name: "Anil Kumar",    amount: "₹10,500",months: 3, lastReminder: "Never"      },
 ];
 
 const QUICK_ACTIONS = [
@@ -38,7 +38,7 @@ const QUICK_ACTIONS = [
 
 export default function AdminDashboard() {
   return (
-    <AdminLayout title="Admin Dashboard" subtitle="Greenwoods CHS — May 2025">
+    <AdminLayout title="Admin Dashboard" subtitle="Nirvana Beyond — May 2025">
 
       {/* Stats */}
       <div className="grid-cols-4" style={{ marginBottom: "2rem" }}>
@@ -157,7 +157,7 @@ export default function AdminDashboard() {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1rem", maxWidth: 400 }}>
           {[
-            { wing: "Wing A", collected: 26, total: 30, pct: 88.2 },
+            { wing: "Whing E", collected: 26, total: 30, pct: 88.2 },
           ].map((w) => (
             <div key={w.wing} style={{ textAlign: "left" }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: "var(--text-dim)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "0.4rem" }}>

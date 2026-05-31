@@ -5,14 +5,14 @@ import { ArrowRight, Building2, Shield, Users, Home, Star, CheckCircle2, BarChar
 
 const STATS = [
   { value: "30", label: "Flats" },
-  { value: "1", label: "Wing (Wing A)" },
+  { value: "1", label: "Wing (Whing E)" },
   { value: "₹1.05L", label: "Collected/Mo" },
   { value: "99.9%", label: "Uptime" },
 ];
 
 const FEATURES = [
   { icon: Building2, title: "Society Management", desc: "Manage flats, owners and tenants in one place" },
-  { icon: CreditCard, title: "Online Payments", desc: "UPI, card, NEFT — auto-receipts sent instantly" },
+  { icon: CreditCard, title: "Online Payments", desc: "UPI, card, auto-receipts sent instantly" },
   { icon: BarChart3, title: "Real-time Reports", desc: "Monthly collection charts and breakdowns" },
   { icon: Bell, title: "Smart Reminders", desc: "Auto WhatsApp/email reminders to defaulters" },
 ];
@@ -35,8 +35,8 @@ export default function LandingPage() {
         padding: "0.875rem 1.5rem",
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
-          <img src="/images/logo.jpg" alt="Nirwana Logo" style={{ width: 48, height: 38, borderRadius: "var(--radius-md)", objectFit: "cover" }} />
-          <span style={{ fontWeight: 800, fontSize: "1rem", color: "#0f172a", letterSpacing: "-0.01em" }}>Nirwana</span>
+          <img src="/images/logo.jpg" alt="Nirvana Beyond Logo" style={{ width: 48, height: 38, borderRadius: "var(--radius-md)", objectFit: "cover" }} />
+          <span style={{ fontWeight: 800, fontSize: "1rem", color: "#0f172a", letterSpacing: "-0.01em" }}>Nirvana Beyond</span>
         </div>
         <nav style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <Link href="/login" className="btn btn-secondary btn-sm">Log In</Link>
@@ -181,8 +181,8 @@ export default function LandingPage() {
       {/* Footer */}
       <footer style={{ borderTop: "1px solid #e2e8f0", padding: "2rem 1.25rem", textAlign: "center" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.65rem", marginBottom: "0.75rem" }}>
-          <img src="/images/logo.jpg" alt="Nirwana Logo" style={{ width: 44, height: 34, borderRadius: "var(--radius-sm)", objectFit: "cover" }} />
-          <span style={{ fontWeight: 800, color: "#0f172a", fontSize: "0.95rem" }}>Nirwana</span>
+          <img src="/images/logo.jpg" alt="Nirvana Beyond Logo" style={{ width: 44, height: 34, borderRadius: "var(--radius-sm)", objectFit: "cover" }} />
+          <span style={{ fontWeight: 800, color: "#0f172a", fontSize: "0.95rem" }}>Nirvana Beyond</span>
         </div>
         <p style={{ color: "#94a3b8", fontSize: "0.78rem" }}>© 2025 Nirvana Beyond. Built for Indian Societies. All rights reserved.</p>
       </footer>

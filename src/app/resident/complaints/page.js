@@ -17,8 +17,8 @@ const COMPLAINTS = [
   },
   {
     id: "CMP-007",
-    title: "Elevator not working — Wing A",
-    desc: "The main elevator in Wing A has been stuck on the 3rd floor since yesterday evening. Urgent.",
+    title: "Elevator not working — Whing E",
+    desc: "The main elevator in Whing E has been stuck on the 3rd floor since yesterday evening. Urgent.",
     category: "Elevator",
     status: "resolved",
     raised: "20 May 2025",

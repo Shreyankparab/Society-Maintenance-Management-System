@@ -107,7 +107,7 @@ export default function Sidebar({ collapsed, setCollapsed, mobileOpen, setMobile
           justifyContent: "space-between", gap: "0.75rem",
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", overflow: "hidden" }}>
-            <img src="/images/logo.jpg" alt="Nirwana Logo" style={{ width: 56, height: 44, borderRadius: "var(--radius-md)", objectFit: "cover", flexShrink: 0 }} />
+            <img src="/images/logo.jpg" alt="Nirvana Beyond Logo" style={{ width: 56, height: 44, borderRadius: "var(--radius-md)", objectFit: "cover", flexShrink: 0 }} />
             {!collapsed && (
               <div style={{ overflow: "hidden" }}>
                 <div style={{ fontWeight: 800, fontSize: "0.95rem", color: "var(--text-primary)", whiteSpace: "nowrap", letterSpacing: "-0.01em" }}>Nirvana Beyond</div>

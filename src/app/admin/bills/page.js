@@ -81,7 +81,7 @@ export default function BillsPage() {
                   <label className="label">Generate For</label>
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.75rem", maxWidth: 400 }}>
                     {[
-                      { val: "all",  label: "All Flats (Wing A)", icon: Users     },
+                      { val: "all",  label: "All Flats (Whing E)", icon: Users     },
                       { val: "selected", label: "Selected Flats", icon: CheckSquare},
                     ].map((opt) => {
                       const Icon = opt.icon;

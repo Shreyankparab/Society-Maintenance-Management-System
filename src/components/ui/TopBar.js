@@ -78,7 +78,12 @@ export default function TopBar({ sidebarWidth, onMenuClick, title, subtitle }) {
               <div style={{ ...dropdownBase, width: "min(320px, calc(100vw - 2rem))", overflow: "hidden", zIndex: 200 }}>
                 <div style={{ padding: "0.875rem 1rem", borderBottom: "1px solid var(--border-subtle)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span style={{ fontWeight: 700, fontSize: "0.875rem", color: "var(--text-primary)" }}>Notifications</span>
-                  {unreadCount > 0 && <span className="badge badge-info">{unreadCount} new</span>}
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    {unreadCount > 0 && <span className="badge badge-info">{unreadCount} new</span>}
+                    <button onClick={close} className="btn btn-ghost btn-icon btn-sm" style={{ width: 24, height: 24 }} aria-label="Close notifications">
+                      <X size={14} color="var(--text-dim)" />
+                    </button>
+                  </div>
                 </div>
                 {NOTIFICATIONS.map((n) => (
                   <div key={n.id} style={{

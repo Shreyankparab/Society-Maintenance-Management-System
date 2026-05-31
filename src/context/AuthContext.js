@@ -10,24 +10,24 @@ export const useAuth = () => useContext(AuthContext);
 const MOCK_USERS = [
   {
     id: "ad-001",
-    email: "admin@greenwoodssociety.in",
+    email: "admin@nirvanabeyond.in",
     password: "admin123",
     role: "admin",
     name: "Priya Mehta",
     avatar: "PM",
-    society: "Greenwoods CHS",
+    society: "Nirvana Beyond",
     flat: null,
   },
   {
     id: "res-001",
-    email: "resident@greenwoodssociety.in",
+    email: "resident@nirvanabeyond.in",
     password: "flat101",
     role: "resident",
     name: "Arjun Patel",
     avatar: "AP",
-    society: "Greenwoods CHS",
-    flat: "A-101",
-    wing: "A",
+    society: "Nirvana Beyond",
+    flat: "E-101",
+    wing: "E",
   },
 ];
 
@@ -77,9 +77,9 @@ export const AuthProvider = ({ children }) => {
       email: data.email.toLowerCase(),
       password: data.password,
       role: "resident",
-      society: "Greenwoods CHS",
-      flat: data.flat || "A-101",
-      wing: data.wing || "A",
+      society: "Nirvana Beyond",
+      flat: data.flat || "E-101",
+      wing: data.wing || "E",
       avatar: data.name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2),
       status: "pending"
     };

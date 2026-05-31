@@ -5,14 +5,14 @@ import AdminLayout from "@/components/layouts/AdminLayout";
 import { Search, Plus, Download, Filter, CreditCard, X, CheckCircle2 } from "lucide-react";
 
 const PAYMENTS = [
-  { id: "TXN-8821", flat: "A-101", name: "Arjun Patel",    amount: 3500, mode: "UPI",    ref: "UPI8821XYZQ",    date: "29 May 2025",  status: "paid",    period: "May 2025" },
+  { id: "TXN-8821", flat: "E-101", name: "Arjun Patel",    amount: 3500, mode: "UPI",    ref: "UPI8821XYZQ",    date: "29 May 2025",  status: "paid",    period: "May 2025" },
   { id: "TXN-8820", flat: "B-204", name: "Sneha Rao",      amount: 3500, mode: "Card",   ref: "CARD20489ABD",   date: "29 May 2025",  status: "paid",    period: "May 2025" },
   { id: "TXN-8819", flat: "C-302", name: "Vikram Nair",    amount: 4200, mode: "NEFT",   ref: "NEFT38109XYZ",   date: "28 May 2025",  status: "paid",    period: "May 2025" },
   { id: "TXN-8818", flat: "D-403", name: "Meena Iyer",     amount: 3500, mode: "Cash",   ref: "CASH-RCPT-0091", date: "28 May 2025",  status: "pending", period: "May 2025" },
-  { id: "TXN-8817", flat: "A-205", name: "Ravi Sharma",    amount: 3500, mode: "UPI",    ref: "UPI7123PQRS",    date: "27 May 2025",  status: "paid",    period: "May 2025" },
+  { id: "TXN-8817", flat: "E-205", name: "Ravi Sharma",    amount: 3500, mode: "UPI",    ref: "UPI7123PQRS",    date: "27 May 2025",  status: "paid",    period: "May 2025" },
   { id: "TXN-8816", flat: "B-301", name: "Lakshmi Devi",   amount: 3500, mode: "Cheque", ref: "CHQ-009182",     date: "26 May 2025",  status: "pending", period: "May 2025" },
   { id: "TXN-8815", flat: "C-104", name: "Manoj Tiwari",   amount: 3500, mode: "UPI",    ref: "UPI6612ABCD",    date: "25 May 2025",  status: "paid",    period: "May 2025" },
-  { id: "TXN-8814", flat: "A-303", name: "Sunita Kapoor",  amount: 4200, mode: "NEFT",   ref: "NEFT22110ABC",   date: "24 May 2025",  status: "failed",  period: "May 2025" },
+  { id: "TXN-8814", flat: "E-303", name: "Sunita Kapoor",  amount: 4200, mode: "NEFT",   ref: "NEFT22110ABC",   date: "24 May 2025",  status: "failed",  period: "May 2025" },
 ];
 
 const MODE_COLORS = {
@@ -153,7 +153,7 @@ export default function PaymentsPage() {
               <>
                 <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
                   <div className="grid-cols-2">
-                    <div><label className="label">Flat Number</label><input className="input-field" placeholder="A-101" value={manualForm.flat} onChange={(e) => setManualForm({ ...manualForm, flat: e.target.value })} /></div>
+                    <div><label className="label">Flat Number</label><input className="input-field" placeholder="E-101" value={manualForm.flat} onChange={(e) => setManualForm({ ...manualForm, flat: e.target.value })} /></div>
                     <div><label className="label">Resident Name</label><input className="input-field" placeholder="Arjun Patel" value={manualForm.name} onChange={(e) => setManualForm({ ...manualForm, name: e.target.value })} /></div>
                   </div>
                   <div className="grid-cols-2">
@@ -164,7 +164,7 @@ export default function PaymentsPage() {
                     <div>
                       <label className="label">Payment Mode</label>
                       <select className="select-field" value={manualForm.mode} onChange={(e) => setManualForm({ ...manualForm, mode: e.target.value })}>
-                        {["Cash","Cheque","NEFT","UPI"].map((m) => <option key={m}>{m}</option>)}
+                        {["Cash","Card","UPI"].map((m) => <option key={m}>{m}</option>)}
                       </select>
                     </div>
                   </div>

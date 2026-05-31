@@ -13,7 +13,7 @@ const BILL_ITEMS = [
 const PAYMENT_METHODS = [
   { id: "upi",  label: "UPI",          icon: Smartphone, desc: "PhonePe, GPay, Paytm" },
   { id: "card", label: "Debit/Credit", icon: CreditCard, desc: "Visa, Mastercard, RuPay" },
-  { id: "neft", label: "Net Banking",  icon: Building2,  desc: "NEFT / IMPS transfer" },
+  { id: "cash", label: "Cash",         icon: Banknote,   desc: "Pay in person to Committee" },
 ];
 
 export default function DuesPage() {
@@ -46,7 +46,7 @@ export default function DuesPage() {
 
   if (paid) {
     return (
-      <AdminLayout title="Payment Successful" subtitle="Flat A-101 · Greenwoods CHS">
+      <AdminLayout title="Payment Successful" subtitle="Flat E-101 · Nirvana Beyond">
         <div style={{ maxWidth: 520, margin: "4rem auto", textAlign: "center" }}>
           <div style={{ width: 80, height: 80, borderRadius: "50%", background: "rgba(34,197,94,0.12)", border: "3px solid rgba(34,197,94,0.35)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem" }}>
             <CheckCircle2 size={40} color="var(--accent-primary)" />
@@ -76,7 +76,7 @@ export default function DuesPage() {
   }
 
   return (
-    <AdminLayout title="My Dues" subtitle="Flat A-101 · Greenwoods CHS">
+    <AdminLayout title="My Dues" subtitle="Flat E-101 · Nirvana Beyond">
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
 
         {/* Overdue alert */}

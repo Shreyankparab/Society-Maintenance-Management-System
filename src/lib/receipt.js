@@ -42,7 +42,7 @@ export const downloadReceiptPDF = (p) => {
     <html lang="en">
     <head>
       <meta charset="UTF-8">
-      <title>Receipt_${p.period.replace(" ", "_")}_${p.id || 'Nirwana'}</title>
+      <title>Receipt_${p.period.replace(" ", "_")}_${p.id || 'Nirvana_Beyond'}</title>
       <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
         * {
@@ -252,10 +252,10 @@ export const downloadReceiptPDF = (p) => {
         <div class="header">
           <div class="header-content">
             <div class="logo-area">
-              <img src="/images/logo.jpg" class="logo-img" alt="Nirwana Logo" onerror="this.style.display='none'" />
+              <img src="/images/logo.jpg" class="logo-img" alt="Nirvana Beyond Logo" onerror="this.style.display='none'" />
               <div>
-                <h1 class="society-title">Greenwoods CHS</h1>
-                <div class="society-sub">Reg No: MH/MUM/CHS/12345/2020 · Wing A</div>
+                <h1 class="society-title">Nirvana Beyond</h1>
+                <div class="society-sub">Reg No: MH/MUM/CHS/12345/2020 · Whing E</div>
               </div>
             </div>
             <div class="receipt-badge">
@@ -272,7 +272,7 @@ export const downloadReceiptPDF = (p) => {
             </div>
             <div class="detail-item">
               <div class="detail-label">Flat Number</div>
-              <div class="detail-val">Flat A-101 (Wing A)</div>
+              <div class="detail-val">Flat E-101 (Whing E)</div>
             </div>
             <div class="detail-item">
               <div class="detail-label">Billing Cycle</div>
@@ -330,9 +330,9 @@ export const downloadReceiptPDF = (p) => {
           </div>
 
           <div class="footer-note">
-            <strong>Nirwana Society Management System</strong><br>
+            <strong>Nirvana Beyond Society Management System</strong><br>
             This is an official, digitally-authorized secure electronic document.<br>
-            For any queries or administrative support, please log in to the Nirwana portal or contact the Wing A Committee.
+            For any queries or administrative support, please log in to the Nirvana Beyond portal or contact the Whing E Committee.
           </div>
         </div>
       </div>
