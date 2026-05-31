@@ -17,8 +17,8 @@ const COMPLAINTS = [
   },
   {
     id: "CMP-007",
-    title: "Elevator not working — Whing E",
-    desc: "The main elevator in Whing E has been stuck on the 3rd floor since yesterday evening. Urgent.",
+    title: "Elevator not working — Wing E",
+    desc: "The main elevator in Wing E has been stuck on the 3rd floor since yesterday evening. Urgent.",
     category: "Elevator",
     status: "resolved",
     raised: "20 May 2025",
@@ -38,21 +38,21 @@ const COMPLAINTS = [
 ];
 
 const STATUS_CONFIG = {
-  open:        { label: "Open",        badge: "badge-warning",  icon: Clock,         color: "#b45309" },
-  in_progress: { label: "In Progress", badge: "badge-info",     icon: AlertCircle,   color: "#93c5fd" },
-  resolved:    { label: "Resolved",    badge: "badge-success",  icon: CheckCircle2,  color: "#15803d" },
+  open: { label: "Open", badge: "badge-warning", icon: Clock, color: "#b45309" },
+  in_progress: { label: "In Progress", badge: "badge-info", icon: AlertCircle, color: "#93c5fd" },
+  resolved: { label: "Resolved", badge: "badge-success", icon: CheckCircle2, color: "#15803d" },
 };
 
 const CAT_COLORS = {
-  Plumbing:   "#3b82f6",
-  Elevator:   "#a855f7",
+  Plumbing: "#3b82f6",
+  Elevator: "#a855f7",
   Electrical: "#f59e0b",
-  General:    "#6b7280",
+  General: "#6b7280",
 };
 
 export default function ComplaintsPage() {
-  const [newModal, setNewModal]   = useState(false);
-  const [form, setForm]           = useState({ title: "", desc: "", category: "Plumbing" });
+  const [newModal, setNewModal] = useState(false);
+  const [form, setForm] = useState({ title: "", desc: "", category: "Plumbing" });
   const [submitted, setSubmitted] = useState(false);
 
   return (
@@ -73,7 +73,7 @@ export default function ComplaintsPage() {
         {/* Complaints */}
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           {COMPLAINTS.map((c) => {
-            const sc  = STATUS_CONFIG[c.status];
+            const sc = STATUS_CONFIG[c.status];
             const Icon = sc.icon;
             const catColor = CAT_COLORS[c.category] || "#6b7280";
             return (

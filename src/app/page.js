@@ -5,7 +5,7 @@ import { ArrowRight, Building2, Shield, Users, Home, Star, CheckCircle2, BarChar
 
 const STATS = [
   { value: "30", label: "Flats" },
-  { value: "1", label: "Wing (Whing E)" },
+  { value: "1", label: "Wing (Wing E)" },
   { value: "₹1.05L", label: "Collected/Mo" },
   { value: "99.9%", label: "Uptime" },
 ];

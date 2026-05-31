@@ -11,7 +11,7 @@ export const downloadReceiptPDF = (p) => {
   let baseAmount = p.amount;
   let lateFee = 0;
   let discount = 0;
-  
+
   if (p.amount === 3700) {
     // 3,200 (overdue with late fee)
     itemDescription = "Monthly Maintenance Charges";
@@ -255,7 +255,7 @@ export const downloadReceiptPDF = (p) => {
               <img src="/images/logo.jpg" class="logo-img" alt="Nirvana Beyond Logo" onerror="this.style.display='none'" />
               <div>
                 <h1 class="society-title">Nirvana Beyond</h1>
-                <div class="society-sub">Reg No: MH/MUM/CHS/12345/2020 · Whing E</div>
+                <div class="society-sub">Reg No: MH/MUM/CHS/12345/2020 · Wing E</div>
               </div>
             </div>
             <div class="receipt-badge">
@@ -272,7 +272,7 @@ export const downloadReceiptPDF = (p) => {
             </div>
             <div class="detail-item">
               <div class="detail-label">Flat Number</div>
-              <div class="detail-val">Flat E-101 (Whing E)</div>
+              <div class="detail-val">Flat E-101 (Wing E)</div>
             </div>
             <div class="detail-item">
               <div class="detail-label">Billing Cycle</div>
@@ -332,7 +332,7 @@ export const downloadReceiptPDF = (p) => {
           <div class="footer-note">
             <strong>Nirvana Beyond Society Management System</strong><br>
             This is an official, digitally-authorized secure electronic document.<br>
-            For any queries or administrative support, please log in to the Nirvana Beyond portal or contact the Whing E Committee.
+            For any queries or administrative support, please log in to the Nirvana Beyond portal or contact the Wing E Committee.
           </div>
         </div>
       </div>

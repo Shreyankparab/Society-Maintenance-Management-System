@@ -7,30 +7,30 @@ import { Search, Plus, Building2, Edit2, Trash2, Users, Home, X, ChevronDown, Ch
 
 const WINGS = [
   {
-    wing: "Whing E",
+    wing: "Wing E",
     flats: [
-      { no: "E-101", owner: "Arjun Patel",    tenant: "—",           area: 850,  parking: 1, type: "2BHK", status: "occupied" },
-      { no: "E-102", owner: "Sunita Verma",   tenant: "Raj Kapoor",  area: 850,  parking: 1, type: "2BHK", status: "rented"   },
-      { no: "E-201", owner: "Harish Jain",    tenant: "—",           area: 1050, parking: 2, type: "3BHK", status: "occupied" },
-      { no: "E-202", owner: "Deepa Nair",     tenant: "—",           area: 850,  parking: 1, type: "2BHK", status: "vacant"   },
-      { no: "E-301", owner: "Ravi Kumar",     tenant: "—",           area: 950,  parking: 1, type: "2BHK", status: "occupied" },
-      { no: "E-302", owner: "Rahul Gupta",    tenant: "—",           area: 950,  parking: 1, type: "2BHK", status: "occupied" },
+      { no: "E-101", owner: "Arjun Patel", tenant: "—", area: 850, parking: 1, type: "2BHK", status: "occupied" },
+      { no: "E-102", owner: "Sunita Verma", tenant: "Raj Kapoor", area: 850, parking: 1, type: "2BHK", status: "rented" },
+      { no: "E-201", owner: "Harish Jain", tenant: "—", area: 1050, parking: 2, type: "3BHK", status: "occupied" },
+      { no: "E-202", owner: "Deepa Nair", tenant: "—", area: 850, parking: 1, type: "2BHK", status: "vacant" },
+      { no: "E-301", owner: "Ravi Kumar", tenant: "—", area: 950, parking: 1, type: "2BHK", status: "occupied" },
+      { no: "E-302", owner: "Rahul Gupta", tenant: "—", area: 950, parking: 1, type: "2BHK", status: "occupied" },
     ],
   },
 ];
 
 const STATUS_CONFIG = {
-  occupied: { badge: "badge-success", label: "Occupied"  },
-  rented:   { badge: "badge-info",    label: "Rented"    },
-  vacant:   { badge: "badge-muted",   label: "Vacant"    },
+  occupied: { badge: "badge-success", label: "Occupied" },
+  rented: { badge: "badge-info", label: "Rented" },
+  vacant: { badge: "badge-muted", label: "Vacant" },
 };
 
 export default function FlatsPage() {
-  const [tab, setTab]               = useState("directory"); // "directory" | "pending"
-  const [search, setSearch]       = useState("");
-  const [expanded, setExpanded]   = useState({ "Whing E": true });
-  const [addModal, setAddModal]   = useState(false);
-  const [form, setForm]           = useState({ wing: "E", flatNo: "", owner: "", tenant: "", area: "", type: "2BHK", parking: "1" });
+  const [tab, setTab] = useState("directory"); // "directory" | "pending"
+  const [search, setSearch] = useState("");
+  const [expanded, setExpanded] = useState({ "Wing E": true });
+  const [addModal, setAddModal] = useState(false);
+  const [form, setForm] = useState({ wing: "E", flatNo: "", owner: "", tenant: "", area: "", type: "2BHK", parking: "1" });
 
   const { pendingRegistrations, approveRegistration } = useAuth();
   const pendingCount = pendingRegistrations?.length || 0;
@@ -42,19 +42,19 @@ export default function FlatsPage() {
     : null;
 
   const totalOccupied = allFlats.filter((f) => f.status === "occupied").length;
-  const totalRented   = allFlats.filter((f) => f.status === "rented").length;
-  const totalVacant   = allFlats.filter((f) => f.status === "vacant").length;
+  const totalRented = allFlats.filter((f) => f.status === "rented").length;
+  const totalVacant = allFlats.filter((f) => f.status === "vacant").length;
 
   return (
-    <AdminLayout title="Flat Management" subtitle="Nirvana Beyond · 30 total flats · Whing E">
+    <AdminLayout title="Flat Management" subtitle="Nirvana Beyond · 30 total flats · Wing E">
 
       {/* Stats */}
       <div className="grid-cols-4" style={{ marginBottom: "1.5rem" }}>
         {[
-          { label: "Total Flats",   value: 30, color: "var(--text-primary)" },
-          { label: "Owner-occupied",value: 24,   color: "#15803d"  },
-          { label: "Rented",        value: 5,    color: "#93c5fd"  },
-          { label: "Vacant",        value: 1,    color: "var(--text-dim)" },
+          { label: "Total Flats", value: 30, color: "var(--text-primary)" },
+          { label: "Owner-occupied", value: 24, color: "#15803d" },
+          { label: "Rented", value: 5, color: "#93c5fd" },
+          { label: "Vacant", value: 1, color: "var(--text-dim)" },
         ].map((s) => (
           <div key={s.label} className="glass-card-flat" style={{ padding: "1.1rem 1.25rem", display: "flex", alignItems: "center", gap: "1rem" }}>
             <div style={{ fontSize: "2rem", fontWeight: 900, color: s.color, lineHeight: 1 }}>{s.value}</div>
@@ -226,13 +226,13 @@ export default function FlatsPage() {
                 <div>
                   <label className="label">Type</label>
                   <select className="select-field" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })}>
-                    {["1BHK","2BHK","3BHK","4BHK"].map((t) => <option key={t}>{t}</option>)}
+                    {["1BHK", "2BHK", "3BHK", "4BHK"].map((t) => <option key={t}>{t}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="label">Parking Slots</label>
                   <select className="select-field" value={form.parking} onChange={(e) => setForm({ ...form, parking: e.target.value })}>
-                    {["0","1","2"].map((p) => <option key={p}>{p}</option>)}
+                    {["0", "1", "2"].map((p) => <option key={p}>{p}</option>)}
                   </select>
                 </div>
               </div>

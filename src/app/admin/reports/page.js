@@ -4,16 +4,16 @@ import AdminLayout from "@/components/layouts/AdminLayout";
 import { Download, BarChart3, TrendingUp } from "lucide-react";
 
 const MONTHLY = [
-  { month: "Dec", collected: 105000, pending: 0,       defaulters: 0  },
-  { month: "Jan", collected: 105000, pending: 0,       defaulters: 0  },
-  { month: "Feb", collected: 98000,  pending: 7000,    defaulters: 2  },
-  { month: "Mar", collected: 105000, pending: 0,       defaulters: 0  },
-  { month: "Apr", collected: 101500, pending: 3500,    defaulters: 1  },
-  { month: "May", collected: 105000, pending: 14000,   defaulters: 4  },
+  { month: "Dec", collected: 105000, pending: 0, defaulters: 0 },
+  { month: "Jan", collected: 105000, pending: 0, defaulters: 0 },
+  { month: "Feb", collected: 98000, pending: 7000, defaulters: 2 },
+  { month: "Mar", collected: 105000, pending: 0, defaulters: 0 },
+  { month: "Apr", collected: 101500, pending: 3500, defaulters: 1 },
+  { month: "May", collected: 105000, pending: 14000, defaulters: 4 },
 ];
 
 const WING_STATS = [
-  { wing: "Whing E", flats: 30, paid: 26, amount: 105000, pct: 88 },
+  { wing: "Wing E", flats: 30, paid: 26, amount: 105000, pct: 88 },
 ];
 
 const max = Math.max(...MONTHLY.map((m) => m.collected));
@@ -21,15 +21,15 @@ const fmt = (n) => `₹${(n / 1000).toFixed(1)}K`;
 
 export default function AdminReportsPage() {
   return (
-    <AdminLayout title="Reports" subtitle="Nirvana Beyond · Whing E Overview">
+    <AdminLayout title="Reports" subtitle="Nirvana Beyond · Wing E Overview">
 
       {/* KPIs */}
       <div className="grid-cols-4" style={{ marginBottom: "2rem" }}>
         {[
-          { label: "YTD Collected",   value: "₹6.19L",  sub: "Jan–May 2025",     color: "green"  },
-          { label: "YTD Pending",     value: "₹24.5K",  sub: "Across Whing E",    color: "amber"  },
-          { label: "Avg Rate",        value: "96.2%",   sub: "+3.1% vs 2024",    color: "blue"   },
-          { label: "Total Defaulters",value: "4",       sub: "Active in Whing E", color: "red"    },
+          { label: "YTD Collected", value: "₹6.19L", sub: "Jan–May 2025", color: "green" },
+          { label: "YTD Pending", value: "₹24.5K", sub: "Across Wing E", color: "amber" },
+          { label: "Avg Rate", value: "96.2%", sub: "+3.1% vs 2024", color: "blue" },
+          { label: "Total Defaulters", value: "4", sub: "Active in Wing E", color: "red" },
         ].map((k) => (
           <div key={k.label} className={`glass-card stat-card ${k.color}`}>
             <div style={{ fontSize: "2rem", fontWeight: 900, color: "var(--text-primary)", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: "0.4rem" }}>{k.value}</div>

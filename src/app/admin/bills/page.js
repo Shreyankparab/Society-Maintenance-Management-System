@@ -5,22 +5,22 @@ import AdminLayout from "@/components/layouts/AdminLayout";
 import { FileText, Plus, CheckSquare, X, Zap, Building2, Users } from "lucide-react";
 
 const BILL_COMPONENTS = [
-  { key: "maintenance",   label: "Maintenance Charges",  defaultAmt: 2800, required: true  },
-  { key: "penalty",       label: "Late Payment Fee",     defaultAmt: 500,  required: false },
+  { key: "maintenance", label: "Maintenance Charges", defaultAmt: 2800, required: true },
+  { key: "penalty", label: "Late Payment Fee", defaultAmt: 500, required: false },
 ];
 
 const PAST_BILLS = [
-  { id: "BILL-0524", period: "Q1 2025 (Jan-Mar)", flats: 30, total: "₹2.52L", generated: "01 Jan 2025", status: "closed"   },
-  { id: "BILL-0424", period: "Apr-Jun 2025", flats: 30, total: "₹2.52L", generated: "01 Apr 2025", status: "active"   },
+  { id: "BILL-0524", period: "Q1 2025 (Jan-Mar)", flats: 30, total: "₹2.52L", generated: "01 Jan 2025", status: "closed" },
+  { id: "BILL-0424", period: "Apr-Jun 2025", flats: 30, total: "₹2.52L", generated: "01 Apr 2025", status: "active" },
 ];
 
 export default function BillsPage() {
-  const [step, setStep]       = useState(1);
-  const [scope, setScope]     = useState("all");
-  const [freq, setFreq]       = useState("quarterly");
-  const [period, setPeriod]   = useState("May-Jul 2025");
+  const [step, setStep] = useState(1);
+  const [scope, setScope] = useState("all");
+  const [freq, setFreq] = useState("quarterly");
+  const [period, setPeriod] = useState("May-Jul 2025");
   const [dueDate, setDueDate] = useState("10");
-  const [comps, setComps]     = useState(
+  const [comps, setComps] = useState(
     BILL_COMPONENTS.reduce((acc, c) => ({ ...acc, [c.key]: { enabled: c.required, amount: c.defaultAmt } }), {})
   );
   const [generated, setGenerated] = useState(false);
@@ -81,8 +81,8 @@ export default function BillsPage() {
                   <label className="label">Generate For</label>
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.75rem", maxWidth: 400 }}>
                     {[
-                      { val: "all",  label: "All Flats (Whing E)", icon: Users     },
-                      { val: "selected", label: "Selected Flats", icon: CheckSquare},
+                      { val: "all", label: "All Flats (Wing E)", icon: Users },
+                      { val: "selected", label: "Selected Flats", icon: CheckSquare },
                     ].map((opt) => {
                       const Icon = opt.icon;
                       return (
@@ -185,9 +185,9 @@ export default function BillsPage() {
                   <h4 style={{ color: "var(--text-primary)", marginBottom: "1rem" }}>Bill Summary</h4>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem", fontSize: "0.82rem" }}>
                     {[
-                      { l: "Period",    v: period },
-                      { l: "Frequency",v: freq.charAt(0).toUpperCase() + freq.slice(1) },
-                      { l: "Scope",    v: scope === "all" ? "All 30 Flats" : "Selected Flats" },
+                      { l: "Period", v: period },
+                      { l: "Frequency", v: freq.charAt(0).toUpperCase() + freq.slice(1) },
+                      { l: "Scope", v: scope === "all" ? "All 30 Flats" : "Selected Flats" },
                       { l: "Due Date", v: `${dueDate}th ${period}` },
                       { l: "Amount/flat", v: `₹${totalPerFlat.toLocaleString()}` },
                       { l: "Total Expected", v: `₹${totalSociety.toLocaleString()}` },
@@ -230,8 +230,8 @@ export default function BillsPage() {
                 {step < 3
                   ? <button className="btn btn-primary" onClick={() => setStep(step + 1)}>Continue →</button>
                   : <button className="btn btn-primary" onClick={() => setGenerated(true)}>
-                      <Zap size={16} /> Generate Bills
-                    </button>
+                    <Zap size={16} /> Generate Bills
+                  </button>
                 }
               </div>
             )}

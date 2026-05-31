@@ -68,8 +68,8 @@ export default function ResidentReceiptsPage() {
                 >
                   <Eye size={14} /> Preview
                 </button>
-                <button 
-                  className="btn btn-primary btn-sm" 
+                <button
+                  className="btn btn-primary btn-sm"
                   onClick={() => downloadReceiptPDF(r)}
                   style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}
                 >
@@ -110,7 +110,7 @@ export default function ResidentReceiptsPage() {
                   {[
                     { l: "Resident Name", v: "Arjun Patel" },
                     { l: "Flat Number", v: "E-101" },
-                    { l: "Wing", v: "Whing E" },
+                    { l: "Wing", v: "Wing E" },
                     { l: "Mobile", v: "9876543210" },
                     { l: "Payment Period", v: preview.period },
                     { l: "Payment Date", v: preview.date },
@@ -164,7 +164,7 @@ export default function ResidentReceiptsPage() {
             <div style={{ padding: "1rem", display: "flex", gap: "0.75rem", justifyContent: "flex-end", borderTop: "1px solid var(--border-subtle)" }}>
               <button className="btn btn-secondary" onClick={() => setPreview(null)}>Close</button>
               <button className="btn btn-ghost btn-sm"><Mail size={14} /> Email</button>
-              <button 
+              <button
                 className="btn btn-primary"
                 onClick={() => downloadReceiptPDF(preview)}
               >
