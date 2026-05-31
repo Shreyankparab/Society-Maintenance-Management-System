@@ -6,10 +6,11 @@ import { Download, Eye, Share2, Mail, X, Receipt as ReceiptIcon } from "lucide-r
 import { downloadReceiptPDF } from "@/lib/receipt";
 
 const RECEIPTS = [
-  { id: "RCP-0086", period: "Apr 2025", amount: 2800, date: "02 Apr 2025", mode: "UPI", txn: "UPI5511XYZQ" },
-  { id: "RCP-0074", period: "Mar 2025", amount: 2800, date: "05 Mar 2025", mode: "UPI", txn: "UPI4400ABCD" },
-  { id: "RCP-0061", period: "Feb 2025", amount: 2800, date: "08 Feb 2025", mode: "Card", txn: "CARD19900XYZ" },
-  { id: "RCP-0049", period: "Jan 2025", amount: 2800, date: "12 Jan 2025", mode: "UPI", txn: "UPI3300PQRS" },
+  { id: "RCP-0112", period: "January - March 2026",    amount: 8400, date: "05 Apr 2026", mode: "UPI", txn: "UPI8912PQRS" },
+  { id: "RCP-0098", period: "October - December 2025", amount: 8400, date: "04 Jan 2026", mode: "Card", txn: "CARD4400ABCD" },
+  { id: "RCP-0086", period: "July - September 2025",   amount: 8400, date: "08 Oct 2025", mode: "UPI", txn: "UPI5511XYZQ" },
+  { id: "RCP-0074", period: "April - June 2025",      amount: 8400, date: "12 Jul 2025", mode: "UPI", txn: "UPI4400ABCD" },
+  { id: "RCP-0061", period: "January - March 2025",   amount: 8400, date: "02 Apr 2025", mode: "Card", txn: "CARD19900XYZ" },
 ];
 
 export default function ResidentReceiptsPage() {
@@ -25,7 +26,7 @@ export default function ResidentReceiptsPage() {
           {[
             { label: "Total Receipts", value: RECEIPTS.length },
             { label: "Total Paid", value: `₹${(RECEIPTS.reduce((s, r) => s + r.amount, 0)).toLocaleString()}` },
-            { label: "Year", value: "2025" },
+            { label: "Years", value: "2025-26" },
           ].map((s) => (
             <div key={s.label} className="glass-card-flat" style={{ padding: "1rem 1.25rem", display: "flex", gap: "0.875rem", alignItems: "center" }}>
               <div style={{ fontSize: "1.65rem", fontWeight: 900, color: "var(--text-primary)" }}>{s.value}</div>

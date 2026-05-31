@@ -57,6 +57,11 @@ export const AuthProvider = ({ children }) => {
       if (localPending) {
         setPendingRegistrations(JSON.parse(localPending));
       }
+
+      const localCurrentUser = localStorage.getItem("smms_current_user");
+      if (localCurrentUser) {
+        setUser(JSON.parse(localCurrentUser));
+      }
     }
   }, []);
 
@@ -133,6 +138,7 @@ export const AuthProvider = ({ children }) => {
       );
       if (!found) throw new Error("Invalid credentials. Check email & password.");
       setUser(found);
+      localStorage.setItem("smms_current_user", JSON.stringify(found));
       success = true;
       targetRoute = ROLE_ROUTES[found.role];
     } catch (err) {
@@ -150,6 +156,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = useCallback(() => {
     setUser(null);
+    localStorage.removeItem("smms_current_user");
     router.push("/login");
   }, [router]);
 

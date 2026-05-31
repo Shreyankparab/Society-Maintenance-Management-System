@@ -9,8 +9,8 @@ import {
 } from "lucide-react";
 
 const CURRENT_DUE = {
-  period: "May-Jul 2025",
-  dueDate: "10 May 2025",
+  period: "April - June 2026",
+  dueDate: "10 May 2026",
   amount: 8900,
   status: "overdue",
   daysOverdue: 19,
@@ -21,15 +21,15 @@ const CURRENT_DUE = {
 };
 
 const PAYMENT_HISTORY = [
-  { period: "Apr 2025", amount: 2800, date: "02 Apr 2025", mode: "UPI",  status: "paid", id: "RCP-0086", txn: "UPI5511XYZQ" },
-  { period: "Mar 2025", amount: 2800, date: "05 Mar 2025", mode: "UPI",  status: "paid", id: "RCP-0074", txn: "UPI4400ABCD" },
-  { period: "Feb 2025", amount: 2800, date: "08 Feb 2025", mode: "Card", status: "paid", id: "RCP-0061", txn: "CARD19900XYZ" },
+  { period: "January - March 2026",    amount: 8400, date: "05 Apr 2026", mode: "UPI",  status: "paid", id: "RCP-0112", txn: "UPI8912PQRS" },
+  { period: "October - December 2025", amount: 8400, date: "04 Jan 2026", mode: "Card", status: "paid", id: "RCP-0098", txn: "CARD4400ABCD" },
+  { period: "July - September 2025",   amount: 8400, date: "08 Oct 2025", mode: "UPI",  status: "paid", id: "RCP-0086", txn: "UPI5511XYZQ" },
 ];
 
 const NOTICES = [
+  { title: "OVERDUE: Apr-Jun 2026 Maintenance", date: "12 May", category: "Financial"   },
   { title: "AGM – June 15, 2025",              date: "25 May", category: "Meeting"     },
   { title: "Water Disruption – 30th May",       date: "27 May", category: "Maintenance" },
-  { title: "May 2025 Bills Generated",          date: "01 May", category: "Financial"   },
 ];
 
 export default function ResidentDashboard() {
@@ -92,9 +92,9 @@ export default function ResidentDashboard() {
       {/* Quick stats */}
       <div className="grid-cols-3" style={{ marginBottom: "2rem" }}>
         {[
-          { label: "This Month Due",      value: `₹${totalDue.toLocaleString()}`, sub: "No penalty",          color: "red",    icon: AlertCircle   },
-          { label: "Last Payment",        value: "₹10,800",                        sub: "02 Apr 2025",         color: "green",  icon: CheckCircle2  },
-          { label: "Total Paid (2025)",   value: "₹32,600",                        sub: "Yearly paid",         color: "blue",   icon: TrendingDown  },
+          { label: "This Month Due",      value: `₹${totalDue.toLocaleString()}`, sub: "Incl. ₹500 fee",      color: "red",    icon: AlertCircle   },
+          { label: "Last Payment",        value: "₹8,400",                         sub: "05 Apr 2026",         color: "green",  icon: CheckCircle2  },
+          { label: "Total Paid (2026)",   value: "₹8,400",                         sub: "1 payment",           color: "blue",   icon: TrendingDown  },
         ].map((s) => {
           const Icon = s.icon;
           return (

@@ -10,15 +10,15 @@ const BILL_COMPONENTS = [
 ];
 
 const PAST_BILLS = [
-  { id: "BILL-0524", period: "Q1 2025 (Jan-Mar)", flats: 30, total: "₹2.52L", generated: "01 Jan 2025", status: "closed" },
-  { id: "BILL-0424", period: "Apr-Jun 2025", flats: 30, total: "₹2.52L", generated: "01 Apr 2025", status: "active" },
+  { id: "BILL-0524", period: "January - March 2026", flats: 30, total: "₹2.52L", generated: "01 Jan 2026", status: "closed" },
+  { id: "BILL-0424", period: "April - June 2026", flats: 30, total: "₹2.52L", generated: "01 Apr 2026", status: "active" },
 ];
 
 export default function BillsPage() {
   const [step, setStep] = useState(1);
   const [scope, setScope] = useState("all");
   const [freq, setFreq] = useState("quarterly");
-  const [period, setPeriod] = useState("May-Jul 2025");
+  const [period, setPeriod] = useState("April - June 2026");
   const [dueDate, setDueDate] = useState("10");
   const [comps, setComps] = useState(
     BILL_COMPONENTS.reduce((acc, c) => ({ ...acc, [c.key]: { enabled: c.required, amount: c.defaultAmt } }), {})

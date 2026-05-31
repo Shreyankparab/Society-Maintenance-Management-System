@@ -5,11 +5,12 @@ import AdminLayout from "@/components/layouts/AdminLayout";
 import { CheckCircle2, Clock, Download, ArrowUpRight } from "lucide-react";
 
 const PAYMENTS = [
-  { id: "RCP-0086", period: "Apr 2025", amount: 2800, date: "02 Apr 2025", mode: "UPI",   status: "paid",    txn: "UPI5511XYZQ"   },
-  { id: "RCP-0074", period: "Mar 2025", amount: 2800, date: "05 Mar 2025", mode: "UPI",   status: "paid",    txn: "UPI4400ABCD"   },
-  { id: "RCP-0061", period: "Feb 2025", amount: 2800, date: "08 Feb 2025", mode: "Card",  status: "paid",    txn: "CARD19900XYZ"  },
-  { id: "RCP-0049", period: "Jan 2025", amount: 2800, date: "12 Jan 2025", mode: "UPI",   status: "paid",    txn: "UPI3300PQRS"   },
-  { id: "—",        period: "May 2025", amount: 3300, date: "—",           mode: "—",     status: "overdue", txn: "—"             },
+  { id: "—",        period: "April - June 2026",      amount: 8900, date: "—",           mode: "—",     status: "overdue", txn: "—"             },
+  { id: "RCP-0112", period: "January - March 2026",   amount: 8400, date: "05 Apr 2026", mode: "UPI",   status: "paid",    txn: "UPI8912PQRS"   },
+  { id: "RCP-0098", period: "October - December 2025",amount: 8400, date: "04 Jan 2026", mode: "Card",  status: "paid",    txn: "CARD4400ABCD"  },
+  { id: "RCP-0086", period: "July - September 2025",  amount: 8400, date: "08 Oct 2025", mode: "UPI",   status: "paid",    txn: "UPI5511XYZQ"   },
+  { id: "RCP-0074", period: "April - June 2025",      amount: 8400, date: "12 Jul 2025", mode: "UPI",   status: "paid",    txn: "UPI4400ABCD"   },
+  { id: "RCP-0061", period: "January - March 2025",   amount: 8400, date: "02 Apr 2025", mode: "Card",  status: "paid",    txn: "CARD19900XYZ"  },
 ];
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

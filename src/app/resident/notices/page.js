@@ -1,10 +1,19 @@
 "use client";
-
+ 
 import { useState } from "react";
 import AdminLayout from "@/components/layouts/AdminLayout";
-import { Bell, Pin, X, Megaphone } from "lucide-react";
-
+import { Bell, Pin, X, Megaphone, AlertTriangle } from "lucide-react";
+ 
 const NOTICES = [
+  {
+    id: 6,
+    title: "OVERDUE WARNING: April - June 2026 Maintenance",
+    body: "This is an urgent reminder from the Society Management Committee. The maintenance charges for the cycle of April - June 2026 are now overdue (due date was 10 May 2026). A late payment fee of ₹500 has been added to all outstanding flat bills. Please clear your dues immediately to ensure uninterrupted access to society utilities and common facilities. You can complete the payment online in the Dues center.",
+    category: "Warning",
+    date: "12 May 2026",
+    pinned: true,
+    from: "Society Committee",
+  },
   {
     id: 1,
     title: "Annual General Meeting – June 15, 2025",
@@ -51,12 +60,13 @@ const NOTICES = [
     from: "Society Admin",
   },
 ];
-
+ 
 const CAT_COLORS = {
   Meeting:     { bg: "rgba(168,85,247,0.1)", color: "#d8b4fe", border: "rgba(168,85,247,0.2)" },
   Maintenance: { bg: "rgba(245,158,11,0.1)", color: "#b45309", border: "rgba(245,158,11,0.2)" },
   Financial:   { bg: "rgba(34,197,94,0.1)",  color: "#15803d", border: "rgba(34,197,94,0.2)"  },
   Rules:       { bg: "rgba(59,130,246,0.1)", color: "#93c5fd", border: "rgba(59,130,246,0.2)"  },
+  Warning:     { bg: "rgba(239,68,68,0.12)", color: "#f87171", border: "rgba(239,68,68,0.25)"  },
 };
 
 export default function ResidentNoticesPage() {
@@ -128,7 +138,11 @@ function NoticeCard({ n, onView }) {
     >
       <div style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
         <div style={{ width: 44, height: 44, borderRadius: "var(--radius-md)", background: cc.bg || "rgba(15,23,42,0.05)", border: `1px solid ${cc.border || "var(--border-subtle)"}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-          <Megaphone size={20} color={cc.color || "var(--text-muted)"} />
+          {n.category === "Warning" ? (
+            <AlertTriangle size={20} color={cc.color} />
+          ) : (
+            <Megaphone size={20} color={cc.color || "var(--text-muted)"} />
+          )}
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.3rem" }}>

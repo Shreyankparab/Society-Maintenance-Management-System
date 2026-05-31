@@ -1,10 +1,16 @@
 "use client";
-
+ 
 import { useState } from "react";
 import AdminLayout from "@/components/layouts/AdminLayout";
-import { Plus, Megaphone, Pin, X, Eye, Edit2, Trash2 } from "lucide-react";
-
+import { Plus, Megaphone, Pin, X, Eye, Edit2, Trash2, AlertTriangle } from "lucide-react";
+ 
 const NOTICES = [
+  {
+    id: 6, title: "OVERDUE WARNING: April - June 2026 Maintenance",
+    body: "This is an urgent reminder from the Society Management Committee. The maintenance charges for the cycle of April - June 2026 are now overdue (due date was 10 May 2026). A late payment fee of ₹500 has been added to all outstanding flat bills. Please clear your dues immediately to ensure uninterrupted access to society utilities and common facilities. You can complete the payment online in the Dues center.",
+    category: "Warning", date: "12 May 2026", pinned: true, views: 142,
+    target: "Flat E-101 (Arjun Patel)",
+  },
   {
     id: 1, title: "Annual General Meeting – June 15, 2025",
     body: "All flat owners are requested to attend the Annual General Meeting on June 15, 2025 at 6:00 PM in the society hall. Agenda includes: maintenance charges revision, sinking fund update, and election of new secretary.",
@@ -26,12 +32,13 @@ const NOTICES = [
     category: "Rules", date: "20 Apr 2025", pinned: false, views: 64,
   },
 ];
-
+ 
 const CAT_COLORS = {
   Meeting:     { bg: "rgba(168,85,247,0.1)", color: "#d8b4fe", border: "rgba(168,85,247,0.2)" },
   Maintenance: { bg: "rgba(245,158,11,0.1)", color: "#b45309", border: "rgba(245,158,11,0.2)" },
   Financial:   { bg: "rgba(34,197,94,0.1)",  color: "#15803d", border: "rgba(34,197,94,0.2)"  },
   Rules:       { bg: "rgba(59,130,246,0.1)", color: "#93c5fd", border: "rgba(59,130,246,0.2)"  },
+  Warning:     { bg: "rgba(239,68,68,0.12)", color: "#f87171", border: "rgba(239,68,68,0.25)"  },
   General:     { bg: "rgba(15,23,42,0.05)", color: "var(--text-muted)", border: "var(--border-subtle)" },
 };
 
@@ -148,13 +155,22 @@ function NoticeCard({ n, onView, onDelete }) {
   return (
     <div className="glass-card-flat" style={{ padding: "1.25rem 1.5rem", display: "flex", gap: "1rem", alignItems: "flex-start" }}>
       <div style={{ width: 40, height: 40, borderRadius: "var(--radius-md)", background: cc.bg, border: `1px solid ${cc.border}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-        <Megaphone size={18} color={cc.color} />
+        {n.category === "Warning" ? (
+          <AlertTriangle size={18} color={cc.color} />
+        ) : (
+          <Megaphone size={18} color={cc.color} />
+        )}
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.3rem", flexWrap: "wrap" }}>
           {n.pinned && <Pin size={12} color="var(--accent-primary)" />}
           <span style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "0.9rem" }}>{n.title}</span>
           <span style={{ fontSize: "0.68rem", fontWeight: 700, padding: "0.15rem 0.55rem", borderRadius: "99px", background: cc.bg, color: cc.color }}>{n.category}</span>
+          {n.target && (
+            <span style={{ fontSize: "0.68rem", fontWeight: 700, padding: "0.15rem 0.55rem", borderRadius: "99px", background: "rgba(239,68,68,0.15)", color: "#f87171", border: "1px solid rgba(239,68,68,0.3)" }}>
+              Target: {n.target}
+            </span>
+          )}
         </div>
         <p style={{ fontSize: "0.8rem", color: "var(--text-dim)", lineHeight: 1.6, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>{n.body}</p>
         <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginTop: "0.6rem" }}>

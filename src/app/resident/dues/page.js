@@ -60,7 +60,7 @@ export default function DuesPage() {
               className="btn btn-primary"
               onClick={() => downloadReceiptPDF({
                 id: "RCP-" + Math.floor(1000 + Math.random() * 9000),
-                period: isYearly ? "May 2025 - Apr 2026 (Yearly)" : "May-Jul 2025 (Quarterly)",
+                period: isYearly ? "2026 (Yearly)" : "April - June 2026",
                 amount: total,
                 date: new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }),
                 mode: PAYMENT_METHODS.find((m) => m.id === method)?.label || "UPI",
@@ -111,7 +111,7 @@ export default function DuesPage() {
           {/* Bill breakdown */}
           <div className="glass-card-flat" style={{ overflow: "hidden", alignSelf: "start" }}>
             <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid var(--border-subtle)" }}>
-              <div className="section-title" style={{ marginBottom: 0 }}>Bill Breakdown — May 2025</div>
+              <div className="section-title" style={{ marginBottom: 0 }}>Bill Breakdown — {isYearly ? "2026 (Yearly)" : "April - June 2026"}</div>
             </div>
             <div style={{ padding: "1rem 1.5rem" }}>
               {currentItems.map((item, i) => (
