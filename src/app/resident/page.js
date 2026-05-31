@@ -21,9 +21,9 @@ const CURRENT_DUE = {
 };
 
 const PAYMENT_HISTORY = [
-  { period: "Apr 2025", amount: 3500, date: "02 Apr 2025", mode: "UPI",  status: "paid", id: "RCP-0086", txn: "UPI5511XYZQ" },
-  { period: "Mar 2025", amount: 3500, date: "05 Mar 2025", mode: "UPI",  status: "paid", id: "RCP-0074", txn: "UPI4400ABCD" },
-  { period: "Feb 2025", amount: 3500, date: "08 Feb 2025", mode: "Card", status: "paid", id: "RCP-0061", txn: "CARD19900XYZ" },
+  { period: "Apr 2025", amount: 2800, date: "02 Apr 2025", mode: "UPI",  status: "paid", id: "RCP-0086", txn: "UPI5511XYZQ" },
+  { period: "Mar 2025", amount: 2800, date: "05 Mar 2025", mode: "UPI",  status: "paid", id: "RCP-0074", txn: "UPI4400ABCD" },
+  { period: "Feb 2025", amount: 2800, date: "08 Feb 2025", mode: "Card", status: "paid", id: "RCP-0061", txn: "CARD19900XYZ" },
 ];
 
 const NOTICES = [

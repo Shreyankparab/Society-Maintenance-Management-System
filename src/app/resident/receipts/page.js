@@ -6,10 +6,10 @@ import { Download, Eye, Share2, Mail, X, Receipt as ReceiptIcon } from "lucide-r
 import { downloadReceiptPDF } from "@/lib/receipt";
 
 const RECEIPTS = [
-  { id: "RCP-0086", period: "Apr 2025", amount: 3500, date: "02 Apr 2025", mode: "UPI", txn: "UPI5511XYZQ" },
-  { id: "RCP-0074", period: "Mar 2025", amount: 3500, date: "05 Mar 2025", mode: "UPI", txn: "UPI4400ABCD" },
-  { id: "RCP-0061", period: "Feb 2025", amount: 3500, date: "08 Feb 2025", mode: "Card", txn: "CARD19900XYZ" },
-  { id: "RCP-0049", period: "Jan 2025", amount: 3500, date: "12 Jan 2025", mode: "UPI", txn: "UPI3300PQRS" },
+  { id: "RCP-0086", period: "Apr 2025", amount: 2800, date: "02 Apr 2025", mode: "UPI", txn: "UPI5511XYZQ" },
+  { id: "RCP-0074", period: "Mar 2025", amount: 2800, date: "05 Mar 2025", mode: "UPI", txn: "UPI4400ABCD" },
+  { id: "RCP-0061", period: "Feb 2025", amount: 2800, date: "08 Feb 2025", mode: "Card", txn: "CARD19900XYZ" },
+  { id: "RCP-0049", period: "Jan 2025", amount: 2800, date: "12 Jan 2025", mode: "UPI", txn: "UPI3300PQRS" },
 ];
 
 export default function ResidentReceiptsPage() {

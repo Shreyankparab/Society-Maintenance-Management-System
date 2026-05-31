@@ -12,10 +12,10 @@ export const downloadReceiptPDF = (p) => {
   let lateFee = 0;
   let discount = 0;
 
-  if (p.amount === 3700) {
-    // 3,200 (overdue with late fee)
+  if (p.amount === 3300) {
+    // 2,800 (overdue with late fee)
     itemDescription = "Monthly Maintenance Charges";
-    baseAmount = 3200;
+    baseAmount = 2800;
     lateFee = 500;
   } else if (p.amount === 8900) {
     // Quarterly with late fee (8,400 + 500)
@@ -31,10 +31,10 @@ export const downloadReceiptPDF = (p) => {
     itemDescription = "Yearly Maintenance Charges (12 Months)";
     baseAmount = 33600;
     discount = 1000;
-  } else if (p.amount === 3500) {
+  } else if (p.amount === 2800) {
     // Standard mock transaction amount
     itemDescription = "Monthly Maintenance Charges";
-    baseAmount = 3500;
+    baseAmount = 2800;
   }
 
   const receiptHtml = `
