@@ -106,16 +106,13 @@ export default function FlatsPage() {
               <Search size={14} color="var(--text-dim)" style={{ position: "absolute", left: "0.75rem", top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }} />
               <input className="input-field" placeholder="Search flats or owners…" value={search} onChange={(e) => setSearch(e.target.value)} style={{ paddingLeft: "2.25rem", width: 260 }} />
             </div>
-            <button id="add-flat-btn" className="btn btn-primary" onClick={() => setAddModal(true)}>
-              <Plus size={16} /> Add Flat
-            </button>
           </div>
 
           {/* If searching — flat table */}
           {filtered ? (
             <div className="glass-card-flat" style={{ overflow: "hidden" }}>
               <table className="data-table">
-                <thead><tr><th>Flat No</th><th>Owner</th><th>Tenant</th><th>Area</th><th>Type</th><th>Parking</th><th>Status</th><th></th></tr></thead>
+                <thead><tr><th>Flat No</th><th>Owner</th><th>Type</th><th></th></tr></thead>
                 <tbody>
                   {filtered.map((f) => (
                     <FlatRow key={f.no} f={f} />
@@ -145,7 +142,7 @@ export default function FlatsPage() {
                 {expanded[w.wing] && (
                   <div style={{ overflowX: "auto" }}>
                     <table className="data-table">
-                      <thead><tr><th>Flat No</th><th>Owner</th><th>Tenant</th><th>Area (sqft)</th><th>Type</th><th>Parking</th><th>Status</th><th></th></tr></thead>
+                      <thead><tr><th>Flat No</th><th>Owner</th><th>Type</th><th></th></tr></thead>
                       <tbody>
                         {w.flats.map((f) => <FlatRow key={f.no} f={f} />)}
                       </tbody>
@@ -249,16 +246,11 @@ export default function FlatsPage() {
 }
 
 function FlatRow({ f }) {
-  const s = STATUS_CONFIG[f.status];
   return (
     <tr>
       <td><span style={{ fontWeight: 700, color: "#15803d", background: "rgba(34,197,94,0.1)", padding: "0.2rem 0.55rem", borderRadius: "var(--radius-sm)", fontSize: "0.82rem" }}>{f.no}</span></td>
       <td style={{ fontWeight: 600, color: "var(--text-primary)" }}>{f.owner}</td>
-      <td style={{ color: "var(--text-dim)" }}>{f.tenant}</td>
-      <td>{f.area}</td>
       <td><span className="badge badge-muted">{f.type}</span></td>
-      <td>{f.parking}</td>
-      <td><span className={`badge ${s.badge}`}>{s.label}</span></td>
       <td>
         <div style={{ display: "flex", gap: "0.25rem" }}>
           <button className="btn btn-ghost btn-icon btn-sm"><Edit2 size={13} /></button>
