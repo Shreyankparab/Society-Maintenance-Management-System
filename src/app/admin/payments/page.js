@@ -5,39 +5,62 @@ import AdminLayout from "@/components/layouts/AdminLayout";
 import { Search, Plus, Download, Filter, CreditCard, X, CheckCircle2 } from "lucide-react";
 
 const PAYMENTS = [
-  { id: "TXN-8821", flat: "E-101", name: "Arjun Patel",    amount: 3500, mode: "UPI",    ref: "UPI8821XYZQ",    date: "29 May 2025",  status: "paid",    period: "May 2025" },
-  { id: "TXN-8820", flat: "E-204", name: "Sneha Rao",      amount: 3500, mode: "Card",   ref: "CARD20489ABD",   date: "29 May 2025",  status: "paid",    period: "May 2025" },
-  { id: "TXN-8819", flat: "E-302", name: "Vikram Nair",    amount: 4200, mode: "NEFT",   ref: "NEFT38109XYZ",   date: "28 May 2025",  status: "paid",    period: "May 2025" },
-  { id: "TXN-8818", flat: "E-403", name: "Meena Iyer",     amount: 3500, mode: "Cash",   ref: "CASH-RCPT-0091", date: "28 May 2025",  status: "pending", period: "May 2025" },
-  { id: "TXN-8817", flat: "E-205", name: "Ravi Sharma",    amount: 3500, mode: "UPI",    ref: "UPI7123PQRS",    date: "27 May 2025",  status: "paid",    period: "May 2025" },
-  { id: "TXN-8816", flat: "E-301", name: "Lakshmi Devi",   amount: 3500, mode: "Cheque", ref: "CHQ-009182",     date: "26 May 2025",  status: "pending", period: "May 2025" },
-  { id: "TXN-8815", flat: "E-104", name: "Manoj Tiwari",   amount: 3500, mode: "UPI",    ref: "UPI6612ABCD",    date: "25 May 2025",  status: "paid",    period: "May 2025" },
-  { id: "TXN-8814", flat: "E-303", name: "Sunita Kapoor",  amount: 4200, mode: "NEFT",   ref: "NEFT22110ABC",   date: "24 May 2025",  status: "failed",  period: "May 2025" },
+  { id: "TXN-8821", flat: "E-101", name: "Arjun Patel",    amount: 8400, mode: "UPI",    ref: "UPI8821XYZQ",    date: "29 May 2025",  status: "paid",    period: "May 2025" },
+  { id: "TXN-8820", flat: "E-204", name: "Sneha Rao",      amount: 8400, mode: "Card",   ref: "CARD20489ABD",   date: "29 May 2025",  status: "paid",    period: "May 2025" },
+  { id: "TXN-8819", flat: "E-302", name: "Vikram Nair",    amount: 8400, mode: "Card",   ref: "CARD38109XYZ",   date: "28 May 2025",  status: "paid",    period: "May 2025" },
+  { id: "TXN-8818", flat: "E-403", name: "Meena Iyer",     amount: 8900, mode: "Cash",   ref: "CASH-RCPT-0091", date: "28 May 2025",  status: "pending", period: "May 2025" },
+  { id: "TXN-8817", flat: "E-205", name: "Ravi Sharma",    amount: 8400, mode: "UPI",    ref: "UPI7123PQRS",    date: "27 May 2025",  status: "paid",    period: "May 2025" },
+  { id: "TXN-8816", flat: "E-301", name: "Lakshmi Devi",   amount: 8900, mode: "Cash",   ref: "CASH-RCPT-0092", date: "26 May 2025",  status: "pending", period: "May 2025" },
+  { id: "TXN-8815", flat: "E-104", name: "Manoj Tiwari",   amount: 8400, mode: "UPI",    ref: "UPI6612ABCD",    date: "25 May 2025",  status: "paid",    period: "May 2025" },
+  { id: "TXN-8814", flat: "E-303", name: "Sunita Kapoor",  amount: 8900, mode: "UPI",    ref: "UPI22110ABC",    date: "24 May 2025",  status: "failed",  period: "May 2025" },
 ];
 
 const MODE_COLORS = {
   UPI: { bg: "rgba(34,197,94,0.1)", color: "#15803d" },
   Card: { bg: "rgba(59,130,246,0.1)", color: "#93c5fd" },
-  NEFT: { bg: "rgba(168,85,247,0.1)", color: "#d8b4fe" },
   Cash: { bg: "rgba(245,158,11,0.1)", color: "#b45309" },
-  Cheque: { bg: "rgba(239,68,68,0.1)", color: "#fca5a5" },
 };
 
 export default function PaymentsPage() {
-  const [search, setSearch]         = useState("");
-  const [statusFilter, setStatus]   = useState("all");
+  const [payments, setPayments]       = useState(PAYMENTS);
+  const [search, setSearch]           = useState("");
+  const [statusFilter, setStatus]     = useState("all");
   const [manualModal, setManualModal] = useState(false);
-  const [manualForm, setManualForm] = useState({ flat: "", name: "", amount: "", mode: "Cash", ref: "", date: "" });
-  const [successMsg, setSuccess]    = useState(false);
+  const [manualForm, setManualForm]   = useState({ flat: "", name: "", amount: "", mode: "Cash", ref: "", date: "" });
+  const [successMsg, setSuccess]      = useState(false);
+  const [toast, setToast]             = useState(null);
 
-  const filtered = PAYMENTS.filter((p) => {
+  const handleApprove = (id) => {
+    setPayments(payments.map((p) => (p.id === id ? { ...p, status: "paid", date: "Today" } : p)));
+    setToast(`Payment for transaction ${id} approved successfully!`);
+    setTimeout(() => setToast(null), 3000);
+  };
+
+  const addManualPayment = () => {
+    if (!manualForm.flat || !manualForm.name || !manualForm.amount) return;
+    const newTxn = {
+      id: "TXN-" + Math.floor(1000 + Math.random() * 9000),
+      flat: manualForm.flat,
+      name: manualForm.name,
+      amount: Number(manualForm.amount),
+      mode: manualForm.mode,
+      ref: manualForm.ref || "CASH-RCPT-" + Math.floor(1000 + Math.random() * 9000),
+      date: manualForm.date ? new Date(manualForm.date).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) : "Today",
+      status: "pending",
+      period: "May 2025"
+    };
+    setPayments([newTxn, ...payments]);
+    setSuccess(true);
+  };
+
+  const filtered = payments.filter((p) => {
     const s = statusFilter === "all" || p.status === statusFilter;
     const q = search === "" || p.flat.toLowerCase().includes(search.toLowerCase()) || p.name.toLowerCase().includes(search.toLowerCase()) || p.id.toLowerCase().includes(search.toLowerCase());
     return s && q;
   });
 
-  const totalPaid    = PAYMENTS.filter((p) => p.status === "paid").reduce((s, p) => s + p.amount, 0);
-  const totalPending = PAYMENTS.filter((p) => p.status === "pending").reduce((s, p) => s + p.amount, 0);
+  const totalPaid    = payments.filter((p) => p.status === "paid").reduce((s, p) => s + p.amount, 0);
+  const totalPending = payments.filter((p) => p.status === "pending").reduce((s, p) => s + p.amount, 0);
 
   return (
     <AdminLayout title="Payment Tracking" subtitle="Monitor all maintenance payments">
@@ -47,7 +70,7 @@ export default function PaymentsPage() {
         {[
           { label: "Total Received",  value: `₹${(totalPaid/1000).toFixed(1)}K`,    color: "#15803d" },
           { label: "Pending Approval",value: `₹${(totalPending/1000).toFixed(1)}K`, color: "#b45309" },
-          { label: "Transactions",    value: PAYMENTS.length,                        color: "var(--text-primary)" },
+          { label: "Transactions",    value: payments.length,                        color: "var(--text-primary)" },
           { label: "Unique Modes",    value: "5",                                   color: "#93c5fd" },
         ].map((s) => (
           <div key={s.label} className="glass-card-flat" style={{ padding: "1.1rem 1.25rem", display: "flex", gap: "0.875rem", alignItems: "center" }}>
@@ -116,7 +139,7 @@ export default function PaymentsPage() {
                     </td>
                     <td>
                       {p.status === "pending" && (
-                        <button className="btn btn-sm btn-primary" style={{ fontSize: "0.72rem", padding: "0.25rem 0.6rem" }}>Approve</button>
+                        <button className="btn btn-sm btn-primary" onClick={() => handleApprove(p.id)} style={{ fontSize: "0.72rem", padding: "0.25rem 0.6rem" }}>Approve</button>
                       )}
                       {p.status === "paid" && (
                         <button className="btn btn-sm btn-ghost" style={{ fontSize: "0.72rem" }}><Download size={12} /></button>
@@ -137,7 +160,7 @@ export default function PaymentsPage() {
             <div style={{ padding: "1.5rem", borderBottom: "1px solid var(--border-subtle)", display: "flex", justifyContent: "space-between" }}>
               <div>
                 <h3 style={{ color: "var(--text-primary)" }}>Record Manual Payment</h3>
-                <p style={{ fontSize: "0.78rem", color: "var(--text-dim)", marginTop: "0.2rem" }}>For cash, cheque, or bank transfer payments</p>
+                <p style={{ fontSize: "0.78rem", color: "var(--text-dim)", marginTop: "0.2rem" }}>For cash, card, or UPI payments</p>
               </div>
               <button className="btn btn-ghost btn-icon" onClick={() => { setManualModal(false); setSuccess(false); }}><X size={18} /></button>
             </div>
@@ -173,11 +196,23 @@ export default function PaymentsPage() {
                 </div>
                 <div style={{ padding: "1rem 1.5rem", borderTop: "1px solid var(--border-subtle)", display: "flex", gap: "0.75rem", justifyContent: "flex-end" }}>
                   <button className="btn btn-secondary" onClick={() => setManualModal(false)}>Cancel</button>
-                  <button className="btn btn-primary" onClick={() => setSuccess(true)}>Record Payment</button>
+                  <button className="btn btn-primary" onClick={addManualPayment}>Record Payment</button>
                 </div>
               </>
             )}
           </div>
+        </div>
+      )}
+      {toast && (
+        <div style={{
+          position: "fixed", bottom: "2rem", right: "2rem",
+          background: "linear-gradient(135deg, #16a34a, #22c55e)",
+          color: "#022010", padding: "1rem 1.5rem", borderRadius: "var(--radius-lg)",
+          boxShadow: "var(--shadow-lg)", fontWeight: 700, fontSize: "0.875rem",
+          zIndex: 9999, display: "flex", alignItems: "center", gap: "0.5rem",
+          animation: "slideIn 0.3s ease"
+        }}>
+          <CheckCircle2 size={16} /> {toast}
         </div>
       )}
     </AdminLayout>

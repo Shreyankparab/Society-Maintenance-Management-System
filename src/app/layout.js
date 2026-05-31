@@ -14,6 +14,9 @@ export const metadata = {
   description:
     "A premium, unified portal for society management, instant online payments, bill generation, and resident communications. Built for modern housing societies.",
   keywords: "society management, maintenance billing, housing society, resident portal, payment gateway",
+  icons: {
+    icon: "/images/logo.jpg",
+  },
 };
 
 export default function RootLayout({ children }) {
